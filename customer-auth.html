@@ -88,22 +88,107 @@ body{
     margin-top:10px;
 }
 
-.left-panel h1{
-    font-size:60px;
-    line-height:1.1;
-    margin:40px 0 25px;
+.left-panel{
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(16,16,16,0.96),
+        rgba(28,28,28,0.92)
+    );
+
+    padding:80px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+
+    position:relative;
+    overflow:hidden;
+
+}
+
+/* Decorative Glow */
+
+.left-panel::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:450px;
+    height:450px;
+
+    background:rgba(176,125,87,0.08);
+
+    border-radius:50%;
+
+    top:-120px;
+    right:-120px;
+
+    filter:blur(20px);
+
+}
+
+.left-panel::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:250px;
+    height:250px;
+
+    background:rgba(255,255,255,0.03);
+
+    border-radius:50%;
+
+    bottom:-80px;
+    left:-80px;
+
+}
+
+   .left-panel h1{
+
+    font-size:64px;
+    line-height:1.05;
+
+    margin:45px 0 30px;
+
     font-family:'Playfair Display',serif;
+
+    letter-spacing:-2px;
+
 }
 
-.left-panel span{
-    color:var(--lightBrown);
-}
+   .left-panel p{
 
-.left-panel p{
-    line-height:1.9;
+    line-height:2;
     color:#d0d0d0;
+
+    font-size:16px;
+
+    max-width:500px;
+
 }
 
+   .right-panel{
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:60px;
+
+    background:
+    linear-gradient(
+        180deg,
+        rgba(255,255,255,0.01),
+        rgba(255,255,255,0.03)
+    );
+
+}
+   
 /* =========================
    LOGIN CARD
 ========================= */
@@ -113,16 +198,23 @@ body{
     width:100%;
     max-width:500px;
 
-    background:var(--card);
+    background:
+    linear-gradient(
+        180deg,
+        rgba(35,35,35,0.95),
+        rgba(22,22,22,0.96)
+    );
 
     border-radius:35px;
 
-    border:1px solid var(--border);
+    border:1px solid rgba(255,255,255,0.06);
 
-    padding:45px;
+    padding:50px;
 
     box-shadow:
-    0 20px 50px rgba(0,0,0,0.4);
+    0 25px 60px rgba(0,0,0,0.45);
+
+    backdrop-filter:blur(12px);
 
 }
 
@@ -156,26 +248,12 @@ body{
    FORM
 ========================= */
 
-.form-group{
-
-    margin-bottom:25px;
-
-}
-
-.form-group label{
-
-    display:block;
-    margin-bottom:12px;
-    color:#d7d7d7;
-
-}
-
 .form-group input{
 
     width:100%;
-    padding:18px;
+    padding:18px 20px;
 
-    border:none;
+    border:1px solid transparent;
     outline:none;
 
     border-radius:18px;
@@ -184,6 +262,17 @@ body{
     color:white;
 
     font-size:15px;
+
+    transition:0.3s;
+
+}
+
+.form-group input:focus{
+
+    border:1px solid var(--lightBrown);
+
+    box-shadow:
+    0 0 0 4px rgba(176,125,87,0.15);
 
 }
 
@@ -200,11 +289,17 @@ body{
     border:none;
     border-radius:18px;
 
-    background:var(--brown);
+    background:
+    linear-gradient(
+        135deg,
+        var(--brown),
+        var(--lightBrown)
+    );
 
     color:white;
 
     font-size:15px;
+    font-weight:600;
 
     cursor:pointer;
 
@@ -214,10 +309,12 @@ body{
 
 .login-btn:hover{
 
-    background:var(--lightBrown);
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 10px 25px rgba(176,125,87,0.25);
 
 }
-
 /* =========================
    MESSAGE
 ========================= */
@@ -233,6 +330,35 @@ body{
 .success{
 
     color:#7dffb3;
+
+}
+
+   /* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:900px){
+
+    .container{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .left-panel{
+
+        padding:50px;
+    }
+
+    .left-panel h1{
+
+        font-size:42px;
+    }
+
+    .right-panel{
+
+        padding:30px;
+    }
 
 }
 
@@ -265,19 +391,20 @@ body{
     </div>
 
 
-   <div class="login-card">
+  <!-- RIGHT -->
 
-    <div class="login-header">
+<div class="right-panel">
 
-        <h1 id="formTitle">
-           Customer Login
-        </h1>
+    <div class="form-container">
 
-        <p>
-            Enjoy Customer Friendly deliveryand Package tracking
-        </p>
+        <div class="login-card">
+
+           
+       </div>
 
     </div>
+
+</div>
 
     <!-- LOGIN FORM -->
 
