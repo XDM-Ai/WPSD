@@ -189,6 +189,49 @@ body{
 
 <body>
 
+
+<!-- =========================
+     CREATE ADMIN
+========================= -->
+
+<div class="form-group">
+
+    <label>
+        Create Admin Username
+    </label>
+
+    <input
+        type="text"
+        id="newUsername"
+        placeholder="Create Username"
+    >
+
+</div>
+
+<div class="form-group">
+
+    <label>
+        Create Admin Password
+    </label>
+
+    <input
+        type="password"
+        id="newPassword"
+        placeholder="Create Password"
+    >
+
+</div>
+
+<button
+    class="login-btn"
+    onclick="createAdmin()">
+
+    Create Admin Account
+
+</button>
+
+<br><br>
+   
 <!-- =========================
      LOGIN CARD
 ========================= -->
@@ -264,35 +307,55 @@ body{
 
 <script>
 
-/* =========================
-   CREATE DEFAULT ADMIN
-========================= */
+<script>
 
 /* =========================
-   ADMIN SECURITY
+   CREATE ADMIN ACCOUNT
 ========================= */
 
-/* =========================
-   CREATE DEFAULT ADMIN
-========================= */
+function createAdmin(){
 
-if(!localStorage.getItem("adminUser")){
+    const newUsername =
+        document.getElementById("newUsername")
+        .value.trim();
+
+    const newPassword =
+        document.getElementById("newPassword")
+        .value.trim();
+
+    const message =
+        document.getElementById("message");
+
+    if(
+        newUsername === "" ||
+        newPassword === ""
+    ){
+
+        message.innerHTML =
+            "Please fill all signup fields";
+
+        return;
+
+    }
 
     localStorage.setItem(
         "adminUser",
-        "demben"
+        newUsername
     );
-
-}
-
-if(!localStorage.getItem("adminPass")){
 
     localStorage.setItem(
         "adminPass",
-        "secure123"
+        newPassword
     );
 
+    message.innerHTML = `
+        <span class="success">
+            Admin account created successfully
+        </span>
+    `;
+
 }
+
 /* =========================
    LOGIN FUNCTION
 ========================= */
@@ -327,14 +390,10 @@ function loginAdmin(){
             </span>
         `;
 
-        /* SAVE LOGIN SESSION */
-
         localStorage.setItem(
             "adminLoggedIn",
             "true"
         );
-
-        /* REDIRECT */
 
         setTimeout(()=>{
 
@@ -354,7 +413,7 @@ function loginAdmin(){
 
 }
 
-</script>
+</script></script>
 
 </body>
 </html>
