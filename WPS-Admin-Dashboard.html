@@ -440,12 +440,42 @@ td{
 <script>
 
 let shipmentCount = 12;
-
 function generateTrackingID(){
 
-    let random = Math.floor(Math.random() * 90000) + 10000;
+    let random =
+        Math.floor(Math.random() * 90000) + 10000;
 
-    return "WPS-" + random + "-NG";
+    // COUNTRY CODES
+
+    const countries = [
+
+        "US",
+        "UK",
+        "CA",
+        "DE",
+        "FR",
+        "AE",
+        "JP",
+        "AU",
+        "BR",
+        "ZA",
+        "CN",
+        "IN",
+        "NG"
+
+    ];
+
+    // RANDOM COUNTRY
+
+    let country =
+        countries[
+            Math.floor(
+                Math.random() * countries.length
+            )
+        ];
+
+    return "WPS-" + random + "-" + country;
+
 }
 
 function createShipment(){
