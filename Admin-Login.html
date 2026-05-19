@@ -74,49 +74,114 @@ body{
 ========================= */
 
 .left-panel{
-    background:linear-gradient(135deg,#101010,#1a1a1a);
-    padding:70px;
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(16,16,16,0.96),
+        rgba(28,28,28,0.92)
+    );
+
+    padding:80px;
+
     display:flex;
     flex-direction:column;
     justify-content:center;
+
+    position:relative;
+    overflow:hidden;
+
 }
 
-.logo h2{
-    font-family:'Playfair Display',serif;
-    font-size:42px;
+/* Decorative Glow */
+
+.left-panel::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:450px;
+    height:450px;
+
+    background:rgba(176,125,87,0.08);
+
+    border-radius:50%;
+
+    top:-120px;
+    right:-120px;
+
+    filter:blur(20px);
+
 }
 
-.logo p{
-    color:var(--gray);
-    letter-spacing:3px;
-    margin-top:10px;
+.left-panel::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:250px;
+    height:250px;
+
+    background:rgba(255,255,255,0.03);
+
+    border-radius:50%;
+
+    bottom:-80px;
+    left:-80px;
+
 }
 
 .left-panel h1{
-    font-size:60px;
-    line-height:1.1;
-    margin:40px 0 25px;
+
+    font-size:64px;
+
+    line-height:1.05;
+
+    margin:45px 0 30px;
+
     font-family:'Playfair Display',serif;
+
+    letter-spacing:-2px;
+
 }
 
 .left-panel span{
+
     color:var(--lightBrown);
+
 }
 
 .left-panel p{
-    line-height:1.9;
-    color:#d0d0d0;
-}
 
+    line-height:2;
+
+    color:#d0d0d0;
+
+    font-size:16px;
+
+    max-width:500px;
+
+}
 /* =========================
    RIGHT PANEL
 ========================= */
-
 .right-panel{
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     padding:60px;
+
+    background:
+    linear-gradient(
+        180deg,
+        rgba(255,255,255,0.01),
+        rgba(255,255,255,0.03)
+    );
+
 }
 
 .form-container{
@@ -133,19 +198,26 @@ body{
     width:100%;
     max-width:500px;
 
-    background:var(--card);
+    background:
+    linear-gradient(
+        180deg,
+        rgba(35,35,35,0.95),
+        rgba(22,22,22,0.96)
+    );
 
     border-radius:35px;
 
-    border:1px solid var(--border);
+    border:1px solid rgba(255,255,255,0.06);
 
-    padding:45px;
+    padding:60px 50px;
 
     box-shadow:
-    0 20px 50px rgba(0,0,0,0.4);
+    0 25px 60px rgba(0,0,0,0.45);
+
+    backdrop-filter:blur(12px);
 
 }
-
+   
 /* =========================
    HEADER
 ========================= */
@@ -153,22 +225,28 @@ body{
 .login-header{
 
     text-align:center;
-    margin-bottom:40px;
+
+    margin-bottom:45px;
 
 }
 
 .login-header h1{
 
     font-family:'Playfair Display',serif;
+
     font-size:42px;
-    margin-bottom:10px;
+
+    margin-bottom:14px;
 
 }
 
 .login-header p{
 
     color:var(--gray);
-    line-height:1.8;
+
+    line-height:1.9;
+
+    font-size:15px;
 
 }
 
@@ -178,35 +256,56 @@ body{
 
 .form-group{
 
-    margin-bottom:25px;
+    margin-bottom:28px;
 
 }
 
 .form-group label{
 
     display:block;
+
     margin-bottom:12px;
+
     color:#d7d7d7;
+
+    font-size:15px;
+
+    font-weight:500;
+
+    letter-spacing:0.3px;
 
 }
 
 .form-group input{
 
     width:100%;
-    padding:18px;
 
-    border:none;
+    padding:20px 22px;
+
+    border:1px solid transparent;
+
     outline:none;
 
     border-radius:18px;
 
     background:#262626;
+
     color:white;
 
     font-size:15px;
 
+    transition:0.3s;
+
 }
 
+.form-group input:focus{
+
+    border:1px solid var(--lightBrown);
+
+    box-shadow:
+    0 0 0 4px rgba(176,125,87,0.15);
+
+}
 /* =========================
    BUTTON
 ========================= */
@@ -215,16 +314,26 @@ body{
 
     width:100%;
 
-    padding:18px;
+    padding:20px;
+
+    margin-top:10px;
 
     border:none;
+
     border-radius:18px;
 
-    background:var(--brown);
+    background:
+    linear-gradient(
+        135deg,
+        var(--brown),
+        var(--lightBrown)
+    );
 
     color:white;
 
     font-size:15px;
+
+    font-weight:600;
 
     cursor:pointer;
 
@@ -234,7 +343,10 @@ body{
 
 .login-btn:hover{
 
-    background:var(--lightBrown);
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 10px 25px rgba(176,125,87,0.25);
 
 }
 
@@ -253,6 +365,35 @@ body{
 .success{
 
     color:#7dffb3;
+
+}
+
+   /* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:900px){
+
+    .container{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .left-panel{
+
+        padding:50px;
+    }
+
+    .left-panel h1{
+
+        font-size:42px;
+    }
+
+    .right-panel{
+
+        padding:30px;
+    }
 
 }
 
@@ -291,6 +432,35 @@ body{
 
 
    <div class="login-card">
+
+      <div class="right-panel">
+
+    <div class="form-container">
+
+        <div class="login-card">
+
+            <div class="login-header">
+
+                <h1 id="formTitle">
+                    Admin Login
+                </h1>
+
+                <p>
+                    Secure access to shipment management
+                    and logistics dashboard
+                </p>
+
+            </div>
+
+            <!-- LOGIN FORM HERE -->
+
+            <!-- SIGNUP FORM HERE -->
+
+        </div>
+
+    </div>
+
+</div>
 
     <div class="login-header">
 
