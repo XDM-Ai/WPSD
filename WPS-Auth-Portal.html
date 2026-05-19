@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>WPS Authentication Portal</title>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================
+   GLOBAL
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --black:#0b0b0b;
+    --dark:#161616;
+    --card:#1d1d1d;
+    --white:#f5f5f5;
+    --brown:#8b5e3c;
+    --lightBrown:#b07d57;
+    --gray:#9d9d9d;
+    --border:rgba(255,255,255,0.05);
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:var(--black);
+    color:var(--white);
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    padding:20px;
+}
+
+/* =========================
+   GLOW
+========================= */
+
+.glow{
+    position:absolute;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    background:rgba(139,94,60,0.08);
+    filter:blur(120px);
+    z-index:-1;
+}
+
+.glow1{
+    top:-100px;
+    left:-100px;
+}
+
+.glow2{
+    bottom:-100px;
+    right:-100px;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.container{
+    width:100%;
+    max-width:1150px;
+    min-height:700px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    background:rgba(255,255,255,0.02);
+    border:1px solid var(--border);
+    border-radius:35px;
+    overflow:hidden;
+    backdrop-filter:blur(15px);
+}
+
+/* =========================
+   LEFT PANEL
+========================= */
+
+.left-panel{
+    background:linear-gradient(135deg,#101010,#1a1a1a);
+    padding:70px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.logo h2{
+    font-family:'Playfair Display',serif;
+    font-size:42px;
+}
+
+.logo p{
+    color:var(--gray);
+    letter-spacing:3px;
+    margin-top:10px;
+}
+
+.left-panel h1{
+    font-size:60px;
+    line-height:1.1;
+    margin:40px 0 25px;
+    font-family:'Playfair Display',serif;
+}
+
+.left-panel span{
+    color:var(--lightBrown);
+}
+
+.left-panel p{
+    line-height:1.9;
+    color:#d0d0d0;
+}
+
+/* =========================
+   RIGHT PANEL
+========================= */
+
+.right-panel{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:60px;
+}
+
+.form-container{
+    width:100%;
+    max-width:420px;
+}
+
+/* =========================
+   SWITCH BUTTONS
+========================= */
+
+.switch-buttons{
+    display:flex;
+    background:#232323;
+    border-radius:18px;
+    padding:6px;
+    margin-bottom:35px;
+}
+
+.switch-buttons button{
+    flex:1;
+    border:none;
+    padding:15px;
+    border-radius:14px;
+    cursor:pointer;
+    font-size:15px;
+    transition:0.3s;
+    background:transparent;
+    color:white;
+}
+
+.active-switch{
+    background:var(--brown) !important;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.form-box{
+    display:none;
+}
+
+.active-form{
+    display:block;
+}
+
+.form-box h2{
+    font-size:38px;
+    margin-bottom:10px;
+    font-family:'Playfair Display',serif;
+}
+
+.form-box p{
+    color:var(--gray);
+    margin-bottom:30px;
+}
+
+.input-group{
+    margin-bottom:20px;
+}
+
+.input-group label{
+    display:block;
+    margin-bottom:10px;
+    color:#d0d0d0;
+}
+
+.input-group input,
+.input-group select{
+    width:100%;
+    padding:18px;
+    border:none;
+    outline:none;
+    border-radius:16px;
+    background:#252525;
+    color:white;
+    font-size:15px;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.main-btn{
+    width:100%;
+    padding:18px;
+    border:none;
+    border-radius:18px;
+    background:var(--brown);
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+    margin-top:10px;
+}
+
+.main-btn:hover{
+    background:var(--lightBrown);
+    transform:translateY(-2px);
+}
+
+/* =========================
+   USER INFO
+========================= */
+
+.user-info{
+    margin-top:25px;
+    padding:18px;
+    background:#232323;
+    border-radius:16px;
+    line-height:1.8;
+    color:#d0d0d0;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:950px){
+
+    .container{
+        grid-template-columns:1fr;
+    }
+
+    .left-panel{
+        display:none;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .right-panel{
+        padding:35px 25px;
+    }
+
+    .form-box h2{
+        font-size:32px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- GLOW -->
+
+<div class="glow glow1"></div>
+<div class="glow glow2"></div>
+
+<!-- =========================
+     CONTAINER
+========================= -->
+
+<div class="container">
+
+    <!-- LEFT -->
+
+    <div class="left-panel">
+
+        <div class="logo">
+            <h2>WPS</h2>
+            <p>WORLD POSTAL SERVICE</p>
+        </div>
+
+        <h1>
+            Smart <span>Logistics</span> Delivery Ecosystem
+        </h1>
+
+        <p>
+            Access shipment tracking, logistics management,
+            delivery operations, and notification systems
+            through one connected platform experience.
+        </p>
+
+    </div>
+
+    <!-- RIGHT -->
+
+    <div class="right-panel">
+
+        <div class="form-container">
+
+            <!-- SWITCH -->
+
+            <div class="switch-buttons">
+
+                <button
+                    id="loginSwitch"
+                    class="active-switch"
+                    onclick="showLogin()">
+
+                    Login
+
+                </button>
+
+                <button
+                    id="signupSwitch"
+                    onclick="showSignup()">
+
+                    Sign Up
+
+                </button>
+
+            </div>
+
+            <!-- LOGIN FORM -->
+
+            <div
+                class="form-box active-form"
+                id="loginForm">
+
+                <h2>Welcome Back</h2>
+
+                <p>
+                    Login into the WPS ecosystem
+                </p>
+
+                <div class="input-group">
+
+                    <label>Email</label>
+
+                    <input
+                        type="email"
+                        id="loginEmail"
+                        placeholder="Enter your email"
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Password</label>
+
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        placeholder="Enter password"
+                    >
+
+                </div>
+
+                <button
+                    class="main-btn"
+                    onclick="login()">
+
+                    Login To Platform
+
+                </button>
+
+            </div>
+
+            <!-- SIGNUP FORM -->
+
+            <div
+                class="form-box"
+                id="signupForm">
+
+                <h2>Create Account</h2>
+
+                <p>
+                    Register into the WPS ecosystem
+                </p>
+
+                <div class="input-group">
+
+                    <label>Full Name</label>
+
+                    <input
+                        type="text"
+                        id="signupName"
+                        placeholder="Enter full name"
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Email</label>
+
+                    <input
+                        type="email"
+                        id="signupEmail"
+                        placeholder="Enter email"
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Password</label>
+
+                    <input
+                        type="password"
+                        id="signupPassword"
+                        placeholder="Create password"
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Account Role</label>
+
+                    <select id="signupRole">
+
+                        <option value="customer">
+                            Customer
+                        </option>
+
+                        <option value="admin">
+                            Admin
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <button
+                    class="main-btn"
+                    onclick="signup()">
+
+                    Create Account
+
+                </button>
+
+            </div>
+
+            <!-- USER INFO -->
+
+            <div class="user-info" id="userInfo">
+
+                No active session.
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+/* =========================
+   FORM SWITCHING
+========================= */
+
+function showLogin(){
+
+    document
+    .getElementById("loginForm")
+    .classList.add("active-form");
+
+    document
+    .getElementById("signupForm")
+    .classList.remove("active-form");
+
+    document
+    .getElementById("loginSwitch")
+    .classList.add("active-switch");
+
+    document
+    .getElementById("signupSwitch")
+    .classList.remove("active-switch");
+
+}
+
+function showSignup(){
+
+    document
+    .getElementById("signupForm")
+    .classList.add("active-form");
+
+    document
+    .getElementById("loginForm")
+    .classList.remove("active-form");
+
+    document
+    .getElementById("signupSwitch")
+    .classList.add("active-switch");
+
+    document
+    .getElementById("loginSwitch")
+    .classList.remove("active-switch");
+
+}
+
+/* =========================
+   SIGNUP
+========================= */
+
+function signup(){
+
+    const name =
+        document.getElementById("signupName").value;
+
+    const email =
+        document.getElementById("signupEmail").value;
+
+    const password =
+        document.getElementById("signupPassword").value;
+
+    const role =
+        document.getElementById("signupRole").value;
+
+    if(
+        name === "" ||
+        email === "" ||
+        password === ""
+    ){
+
+        alert("Please fill all fields.");
+
+        return;
+
+    }
+
+    let users =
+        JSON.parse(localStorage.getItem("users")) || [];
+
+    // CHECK EXISTING USER
+
+    const existingUser =
+        users.find(user => user.email === email);
+
+    if(existingUser){
+
+        alert("User already exists.");
+
+        return;
+
+    }
+
+    // CREATE USER
+
+    const newUser = {
+
+        name,
+        email,
+        password,
+        role
+
+    };
+
+    users.push(newUser);
+
+    localStorage.setItem(
+        "users",
+        JSON.stringify(users)
+    );
+
+    alert("Account created successfully!");
+
+    showLogin();
+
+}
+
+/* =========================
+   LOGIN
+========================= */
+
+function login(){
+
+    const email =
+        document.getElementById("loginEmail").value;
+
+    const password =
+        document.getElementById("loginPassword").value;
+
+    let users =
+        JSON.parse(localStorage.getItem("users")) || [];
+
+    const foundUser =
+        users.find(user =>
+            user.email === email &&
+            user.password === password
+        );
+
+        console.log(foundUser);
+
+    if(!foundUser){
+
+        alert("Invalid email or password.");
+
+        return;
+
+    }
+
+    // SAVE SESSION
+
+    localStorage.setItem(
+        "currentUser",
+        JSON.stringify(foundUser)
+    );
+
+    updateSession();
+
+    // ROLE REDIRECT
+
+    setTimeout(()=>{
+
+        if(foundUser.role === "admin"){
+
+            window.location.href =
+                "WPS-Admin-Dashboard.html";
+
+        }
+        else{
+
+            window.location.href =
+                "World-Postal-Delivery-Service.html";
+
+        }
+
+    },1000);
+
+}
+
+/* =========================
+   SESSION DISPLAY
+========================= */
+
+function updateSession(){
+
+    const currentUser =
+        JSON.parse(localStorage.getItem("currentUser"));
+
+    const userInfo =
+        document.getElementById("userInfo");
+
+    if(currentUser){
+
+        userInfo.innerHTML = `
+
+            Logged in as:
+            <br><br>
+
+            <strong>
+                ${currentUser.name}
+            </strong>
+
+            <br>
+
+            ${currentUser.email}
+
+            <br>
+
+            Role:
+            ${currentUser.role}
+
+        `;
+
+    }
+    else{
+
+        userInfo.innerHTML =
+            "No active session.";
+
+    }
+
+}
+
+updateSession();
+
+</script>
+
+</body>
+</html>

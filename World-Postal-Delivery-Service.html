@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>World Postal Delivery Service</title>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================
+   GLOBAL STYLES
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --black:#0b0b0b;
+    --dark:#161616;
+    --white:#f5f5f5;
+    --brown:#8b5e3c;
+    --lightBrown:#b07d57;
+    --gray:#2b2b2b;
+    --softGray:#9d9d9d;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:var(--black);
+    color:var(--white);
+    overflow-x:hidden;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+nav{
+    width:100%;
+    padding:20px 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    background:rgba(11,11,11,0.95);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(255,255,255,0.05);
+    z-index:1000;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo-box{
+    width:45px;
+    height:45px;
+    border-radius:12px;
+    background:var(--brown);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+    color:white;
+}
+
+.logo-text h2{
+    font-size:18px;
+    font-weight:600;
+}
+
+.logo-text p{
+    font-size:12px;
+    color:var(--softGray);
+    letter-spacing:2px;
+}
+
+.nav-links{
+    display:flex;
+    gap:25px;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:var(--white);
+    transition:0.3s;
+}
+
+.nav-links a:hover{
+    color:var(--brown);
+}
+
+/* =========================
+   HERO SECTION
+========================= */
+
+.hero{
+    min-height:90vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:60px 8%;
+}
+
+.hero-content{
+    max-width:700px;
+}
+
+.hero-content span{
+    color:var(--brown);
+    letter-spacing:3px;
+    font-size:14px;
+}
+
+.hero-content h1{
+    font-family:'Playfair Display',serif;
+    font-size:70px;
+    line-height:1.1;
+    margin:20px 0;
+}
+
+.hero-content p{
+    color:#cfcfcf;
+    line-height:1.8;
+    margin-bottom:30px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    padding:15px 30px;
+    border:none;
+    border-radius:50px;
+    cursor:pointer;
+    font-size:15px;
+    transition:0.3s;
+}
+
+.primary-btn{
+    background:var(--brown);
+    color:white;
+}
+
+.primary-btn:hover{
+    background:var(--lightBrown);
+    transform:translateY(-2px);
+}
+
+.secondary-btn{
+    background:transparent;
+    border:1px solid rgba(255,255,255,0.2);
+    color:white;
+}
+
+.secondary-btn:hover{
+    border-color:var(--brown);
+    color:var(--brown);
+}
+
+/* =========================
+   TRACKING SECTION
+========================= */
+
+.tracking-section{
+    padding:80px 8%;
+}
+
+.section-title{
+    margin-bottom:40px;
+}
+
+.section-title h2{
+    font-family:'Playfair Display',serif;
+    font-size:45px;
+    margin-bottom:10px;
+}
+
+.section-title p{
+    color:#bdbdbd;
+}
+
+.tracking-card{
+    background:var(--dark);
+    border:1px solid rgba(255,255,255,0.05);
+    border-radius:30px;
+    padding:40px;
+}
+
+.tracking-form{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.tracking-form input{
+    flex:1;
+    min-width:250px;
+    padding:18px;
+    border:none;
+    outline:none;
+    border-radius:15px;
+    background:#222;
+    color:white;
+    font-size:15px;
+}
+
+.track-btn{
+    padding:18px 30px;
+    border:none;
+    border-radius:15px;
+    background:var(--brown);
+    color:white;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.track-btn:hover{
+    background:var(--lightBrown);
+}
+
+#trackingResult{
+
+    margin-top:30px;
+
+}
+
+.tracking-card{
+
+    background:#1d1d1d;
+
+    padding:30px;
+
+    border-radius:24px;
+
+    border:1px solid
+    rgba(255,255,255,0.05);
+
+    line-height:2;
+
+    color:white;
+
+}
+
+/* =========================
+   RESULT CARD
+========================= */
+
+.result-card{
+    margin-top:35px;
+    display:none;
+    background:#1d1d1d;
+    border-radius:25px;
+    padding:30px;
+    border:1px solid rgba(255,255,255,0.05);
+}
+
+.status{
+    display:inline-block;
+    padding:10px 18px;
+    background:rgba(139,94,60,0.15);
+    border:1px solid rgba(139,94,60,0.3);
+    color:var(--lightBrown);
+    border-radius:50px;
+    margin-bottom:25px;
+}
+
+.result-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:25px;
+}
+
+.info-box h4{
+    color:#9f9f9f;
+    margin-bottom:8px;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.info-box p{
+    font-size:18px;
+    font-weight:600;
+}
+
+/* =========================
+   SERVICES
+========================= */
+
+.services{
+    padding:80px 8%;
+}
+
+.service-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.service-card{
+    background:var(--dark);
+    border-radius:25px;
+    padding:35px;
+    transition:0.3s;
+    border:1px solid rgba(255,255,255,0.05);
+}
+
+.service-card:hover{
+    transform:translateY(-5px);
+    border-color:rgba(139,94,60,0.3);
+}
+
+.service-icon{
+    width:60px;
+    height:60px;
+    border-radius:18px;
+    background:rgba(139,94,60,0.15);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:20px;
+    font-size:24px;
+}
+
+.service-card h3{
+    margin-bottom:15px;
+}
+
+.service-card p{
+    color:#bdbdbd;
+    line-height:1.7;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    padding:40px 8%;
+    text-align:center;
+    color:#9f9f9f;
+    border-top:1px solid rgba(255,255,255,0.05);
+    margin-top:60px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:768px){
+
+    .hero-content h1{
+        font-size:48px;
+    }
+
+    .nav-links{
+        display:none;
+    }
+
+    .section-title h2{
+        font-size:35px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<nav>
+
+    <div class="logo">
+
+        <div class="logo-box">
+            ✦
+        </div>
+
+        <div class="logo-text">
+            <h2>World Postal Delivery</h2>
+            <p>DELIVERY NETWORK</p>
+        </div>
+
+    </div>
+
+   <div class="nav-links">
+    <a href="#">Home</a>
+    <a href="#">Track</a>
+    <a href="#">Services</a>
+    <a href="login.html">Login</a>
+    <a href="dashboard.html">Dashboard</a>
+</div>
+
+</nav>
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <span>GLOBAL DELIVERY & LOGISTICS</span>
+
+        <h1>
+            Fast & Secure Delivery Tracking Experience
+        </h1>
+
+        <p>
+            Track shipments, manage deliveries, monitor transit progress,
+            and stay updated with your package status in real time.
+        </p>
+
+        <div class="hero-buttons">
+
+            <button class="btn primary-btn"
+onclick="document.querySelector('.tracking-section')
+.scrollIntoView({behavior:'smooth'})">
+
+    Track Shipment
+
+</button>
+
+            <button class="btn secondary-btn">
+                Learn More
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================
+     TRACKING SECTION
+========================= -->
+
+<section class="tracking-section">
+
+    <div class="section-title">
+        <h2>Track Your Shipment</h2>
+        <p>
+            Enter your tracking number below
+        </p>
+    </div>
+
+    <div class="tracking-card">
+
+        <div class="tracking-form">
+
+            <input
+                  type="text"
+                  id="trackingInput"
+                  placeholder="Enter Tracking ID">
+
+            <button 
+                  onclick="trackShipment()">
+                  Track Package
+        </button>
+
+        </div>
+
+        <!-- RESULT CARD -->
+
+         <div id="trackingResult">
+                    
+
+        <div class="result-card" id="resultCard">
+
+            <div class="status" id="shipmentStatus">
+                In Transit
+            </div>
+
+            <div class="result-grid">
+<!-- 
+                <div class="info-box">
+                    <h4>Tracking Number</h4>
+                    <p id="trackingNumber">
+                        WPS-20495-NG
+                    </p>
+                </div>
+
+                <div class="info-box">
+                    <h4>Receiver</h4>
+                    <p id="receiverName">
+                        Zehra Bora
+                    </p>
+                </div>
+
+                <div class="info-box">
+                    <h4>Destination</h4>
+                    <p id="destination">
+                        Istanbul, Turkey
+                    </p>
+                </div>
+
+                <div class="info-box">
+                    <h4>Estimated Arrival</h4>
+                    <p id="arrival">
+                        May 15, 2026
+                    </p>
+                </div> -->
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================
+     SERVICES
+========================= -->
+
+<section class="services">
+
+    <div class="section-title">
+        <h2>Our Services</h2>
+        <p>
+            Logistics solutions designed for modern delivery operations
+        </p>
+    </div>
+
+    <div class="service-grid">
+
+        <div class="service-card">
+
+            <div class="service-icon">
+                📦
+            </div>
+
+            <h3>Package Tracking</h3>
+
+            <p>
+                Monitor shipments and delivery progress in real time
+                using advanced tracking systems.
+            </p>
+
+        </div>
+
+        <div class="service-card">
+
+            <div class="service-icon">
+                🚚
+            </div>
+
+            <h3>Courier Delivery</h3>
+
+            <p>
+                Fast and secure transport services for local and
+                international deliveries.
+            </p>
+
+        </div>
+
+        <div class="service-card">
+
+            <div class="service-icon">
+                ✉️
+            </div>
+
+            <h3>Mail Notifications</h3>
+
+            <p>
+                Stay informed with automated shipment and delivery
+                notification updates.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+    © 2026 World Postal Delivery Service — All Rights Reserved
+</footer>
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+<script>
+
+function trackShipment(){
+
+    const trackingInput =
+        document.getElementById("trackingInput")
+        .value
+        .trim();
+
+    const resultBox =
+        document.getElementById("trackingResult");
+
+    // GET SHIPMENTS
+
+    let shipments =
+        JSON.parse(localStorage.getItem("shipments"))
+        || [];
+
+    // FIND SHIPMENT
+
+    const shipment =
+        shipments.find(item =>
+            item.trackingID === trackingInput
+        );
+
+    // IF FOUND
+
+    if(shipment){
+
+        resultBox.innerHTML = `
+
+        <div class="tracking-card">
+
+            <h2>
+                Shipment Located
+            </h2>
+
+            <br>
+
+            <p>
+                <strong>Tracking ID:</strong>
+                ${shipment.trackingID}
+            </p>
+
+            <p>
+                <strong>Sender:</strong>
+                ${shipment.sender}
+            </p>
+
+            <p>
+                <strong>Receiver:</strong>
+                ${shipment.receiver}
+            </p>
+
+            <p>
+                <strong>Destination:</strong>
+                ${shipment.destination}
+            </p>
+
+            <p>
+                <strong>Package Type:</strong>
+                ${shipment.packageType}
+            </p>
+
+            <p>
+                <strong>Weight:</strong>
+                ${shipment.weight}
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+                ${shipment.status}
+            </p>
+
+        </div>
+
+        `;
+
+    }
+
+    // IF NOT FOUND
+
+    else{
+
+        resultBox.innerHTML = `
+
+        <div class="tracking-card">
+
+            <h2>
+                Shipment Not Found
+            </h2>
+
+            <br>
+
+            <p>
+                Please check the tracking ID
+                and try again.
+            </p>
+
+        </div>
+
+        `;
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
