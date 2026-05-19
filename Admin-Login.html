@@ -268,7 +268,20 @@ body{
    CREATE DEFAULT ADMIN
 ========================= */
 
-if(!localStorage.getItem("adminUser")){
+/* =========================
+   ADMIN SECURITY
+========================= */
+
+if(
+    localStorage.getItem("adminLoggedIn")
+    !== "true"
+){
+
+    window.location.href =
+    "admin-login.html";
+
+}
+   if(!localStorage.getItem("adminUser")){
 
     localStorage.setItem(
         "adminUser",
