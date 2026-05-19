@@ -276,6 +276,168 @@ body{
 
 }
 
+   /* =========================
+   FORM
+========================= */
+
+.form-group{
+
+    margin-bottom:28px;
+
+}
+
+.form-group label{
+
+    display:block;
+
+    margin-bottom:12px;
+
+    color:#d7d7d7;
+
+    font-size:15px;
+
+    font-weight:500;
+
+    letter-spacing:0.3px;
+
+}
+
+.form-group input{
+
+    width:100%;
+
+    padding:20px 22px;
+
+    border:1px solid transparent;
+
+    outline:none;
+
+    border-radius:18px;
+
+    background:#262626;
+
+    color:white;
+
+    font-size:15px;
+
+    transition:0.3s;
+
+}
+
+.form-group input:focus{
+
+    border:1px solid var(--lightBrown);
+
+    box-shadow:
+    0 0 0 4px rgba(176,125,87,0.15);
+
+}
+
+/* =========================
+   LOGIN CARD
+========================= */
+
+.login-card{
+
+    width:100%;
+    max-width:500px;
+
+    background:
+    linear-gradient(
+        180deg,
+        rgba(35,35,35,0.95),
+        rgba(22,22,22,0.96)
+    );
+
+    border-radius:35px;
+
+    border:1px solid rgba(255,255,255,0.06);
+
+    padding:60px 50px;
+
+    box-shadow:
+    0 25px 60px rgba(0,0,0,0.45);
+
+    backdrop-filter:blur(12px);
+
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.login-header{
+
+    text-align:center;
+
+    margin-bottom:45px;
+
+}
+
+.login-header h1{
+
+    font-family:'Playfair Display',serif;
+
+    font-size:42px;
+
+    margin-bottom:14px;
+
+}
+
+.login-header p{
+
+    color:var(--gray);
+
+    line-height:1.9;
+
+    font-size:15px;
+
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.login-btn{
+
+    width:100%;
+
+    padding:20px;
+
+    margin-top:10px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--brown),
+        var(--lightBrown)
+    );
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:0.3s;
+
+}
+
+.login-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 10px 25px rgba(176,125,87,0.25);
+
+}
+
 /* =========================
    BUTTON
 ========================= */
@@ -398,7 +560,18 @@ body{
     <div class="form-container">
 
         <div class="login-card">
+            <div class="login-header">
 
+    <h1 id="formTitle">
+        Customer Login
+    </h1>
+
+    <p>
+        Enjoy customer-friendly delivery
+        and package tracking services
+    </p>
+
+</div>
            <!-- LOGIN FORM -->
 
     <div id="loginForm">
