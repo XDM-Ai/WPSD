@@ -52,6 +52,58 @@ body{
 
 }
 
+   .container{
+    width:100%;
+    max-width:1150px;
+    min-height:700px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    background:rgba(255,255,255,0.02);
+    border:1px solid var(--border);
+    border-radius:35px;
+    overflow:hidden;
+    backdrop-filter:blur(15px);
+}
+
+/* =========================
+   LEFT PANEL
+========================= */
+
+.left-panel{
+    background:linear-gradient(135deg,#101010,#1a1a1a);
+    padding:70px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.logo h2{
+    font-family:'Playfair Display',serif;
+    font-size:42px;
+}
+
+.logo p{
+    color:var(--gray);
+    letter-spacing:3px;
+    margin-top:10px;
+}
+
+.left-panel h1{
+    font-size:60px;
+    line-height:1.1;
+    margin:40px 0 25px;
+    font-family:'Playfair Display',serif;
+}
+
+.left-panel span{
+    color:var(--lightBrown);
+}
+
+.left-panel p{
+    line-height:1.9;
+    color:#d0d0d0;
+}
+
 /* =========================
    LOGIN CARD
 ========================= */
