@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Login</title>
+
+<!-- GOOGLE FONTS -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================
+   GLOBAL
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+
+    --black:#0b0b0b;
+    --card:#1a1a1a;
+    --white:#f5f5f5;
+    --brown:#8b5e3c;
+    --lightBrown:#b07d57;
+    --gray:#9d9d9d;
+    --border:rgba(255,255,255,0.05);
+
+}
+
+body{
+
+    background:var(--black);
+    color:var(--white);
+    font-family:'Inter',sans-serif;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    min-height:100vh;
+    padding:20px;
+
+}
+
+/* =========================
+   LOGIN CARD
+========================= */
+
+.login-card{
+
+    width:100%;
+    max-width:500px;
+
+    background:var(--card);
+
+    border-radius:35px;
+
+    border:1px solid var(--border);
+
+    padding:45px;
+
+    box-shadow:
+    0 20px 50px rgba(0,0,0,0.4);
+
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.login-header{
+
+    text-align:center;
+    margin-bottom:40px;
+
+}
+
+.login-header h1{
+
+    font-family:'Playfair Display',serif;
+    font-size:42px;
+    margin-bottom:10px;
+
+}
+
+.login-header p{
+
+    color:var(--gray);
+    line-height:1.8;
+
+}
+
+/* =========================
+   FORM
+========================= */
+
+.form-group{
+
+    margin-bottom:25px;
+
+}
+
+.form-group label{
+
+    display:block;
+    margin-bottom:12px;
+    color:#d7d7d7;
+
+}
+
+.form-group input{
+
+    width:100%;
+    padding:18px;
+
+    border:none;
+    outline:none;
+
+    border-radius:18px;
+
+    background:#262626;
+    color:white;
+
+    font-size:15px;
+
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.login-btn{
+
+    width:100%;
+
+    padding:18px;
+
+    border:none;
+    border-radius:18px;
+
+    background:var(--brown);
+
+    color:white;
+
+    font-size:15px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+
+}
+
+.login-btn:hover{
+
+    background:var(--lightBrown);
+
+}
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message{
+
+    margin-top:25px;
+    text-align:center;
+    color:#ff8a8a;
+
+}
+
+.success{
+
+    color:#7dffb3;
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     LOGIN CARD
+========================= -->
+
+<div class="login-card">
+
+    <div class="login-header">
+
+        <h1>Admin Login</h1>
+
+        <p>
+            Secure access to shipment management
+            and logistics dashboard
+        </p>
+
+    </div>
+
+    <!-- USERNAME -->
+
+    <div class="form-group">
+
+        <label>
+            Admin Username
+        </label>
+
+        <input
+            type="text"
+            id="username"
+            placeholder="Enter Username"
+        >
+
+    </div>
+
+    <!-- PASSWORD -->
+
+    <div class="form-group">
+
+        <label>
+            Password
+        </label>
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Enter Password"
+        >
+
+    </div>
+
+    <!-- LOGIN BUTTON -->
+
+    <button
+        class="login-btn"
+        onclick="loginAdmin()">
+
+        Login To Dashboard
+
+    </button>
+
+    <!-- MESSAGE -->
+
+    <div
+        class="message"
+        id="message">
+
+    </div>
+
+</div>
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+/* =========================
+   CREATE DEFAULT ADMIN
+========================= */
+
+if(!localStorage.getItem("adminUser")){
+
+    localStorage.setItem(
+        "adminUser",
+        "admin"
+    );
+
+}
+
+if(!localStorage.getItem("adminPass")){
+
+    localStorage.setItem(
+        "adminPass",
+        "wps123"
+    );
+
+}
+
+/* =========================
+   LOGIN FUNCTION
+========================= */
+
+function loginAdmin(){
+
+    const username =
+        document.getElementById("username")
+        .value.trim();
+
+    const password =
+        document.getElementById("password")
+        .value.trim();
+
+    const message =
+        document.getElementById("message");
+
+    const savedUser =
+        localStorage.getItem("adminUser");
+
+    const savedPass =
+        localStorage.getItem("adminPass");
+
+    if(
+        username === savedUser &&
+        password === savedPass
+    ){
+
+        message.innerHTML = `
+            <span class="success">
+                Login Successful...
+            </span>
+        `;
+
+        /* SAVE LOGIN SESSION */
+
+        localStorage.setItem(
+            "adminLoggedIn",
+            "true"
+        );
+
+        /* REDIRECT */
+
+        setTimeout(()=>{
+
+            window.location.href =
+            "admin-dashboard.html";
+
+        },1500);
+
+    }
+
+    else{
+
+        message.innerHTML =
+            "Invalid Username or Password";
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
