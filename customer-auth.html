@@ -1,1 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Customer Login</title>
+
+<!-- GOOGLE FONTS -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================
+   GLOBAL
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+
+    --black:#0b0b0b;
+    --card:#1a1a1a;
+    --white:#f5f5f5;
+    --brown:#8b5e3c;
+    --lightBrown:#b07d57;
+    --gray:#9d9d9d;
+    --border:rgba(255,255,255,0.05);
+
+}
+
+body{
+
+    background:var(--black);
+    color:var(--white);
+    font-family:'Inter',sans-serif;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    min-height:100vh;
+    padding:20px;
+
+}
+
+/* =========================
+   LOGIN CARD
+========================= */
+
+.login-card{
+
+    width:100%;
+    max-width:500px;
+
+    background:var(--card);
+
+    border-radius:35px;
+
+    border:1px solid var(--border);
+
+    padding:45px;
+
+    box-shadow:
+    0 20px 50px rgba(0,0,0,0.4);
+
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.login-header{
+
+    text-align:center;
+    margin-bottom:40px;
+
+}
+
+.login-header h1{
+
+    font-family:'Playfair Display',serif;
+    font-size:42px;
+    margin-bottom:10px;
+
+}
+
+.login-header p{
+
+    color:var(--gray);
+    line-height:1.8;
+
+}
+
+/* =========================
+   FORM
+========================= */
+
+.form-group{
+
+    margin-bottom:25px;
+
+}
+
+.form-group label{
+
+    display:block;
+    margin-bottom:12px;
+    color:#d7d7d7;
+
+}
+
+.form-group input{
+
+    width:100%;
+    padding:18px;
+
+    border:none;
+    outline:none;
+
+    border-radius:18px;
+
+    background:#262626;
+    color:white;
+
+    font-size:15px;
+
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+.login-btn{
+
+    width:100%;
+
+    padding:18px;
+
+    border:none;
+    border-radius:18px;
+
+    background:var(--brown);
+
+    color:white;
+
+    font-size:15px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+
+}
+
+.login-btn:hover{
+
+    background:var(--lightBrown);
+
+}
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message{
+
+    margin-top:25px;
+    text-align:center;
+    color:#ff8a8a;
+
+}
+
+.success{
+
+    color:#7dffb3;
+
+}
+
+</style>
+</head>
+
+<body>
+
+   <div class="login-card">
+
+    <div class="login-header">
+
+        <h1 id="formTitle">
+           Customer Login
+        </h1>
+
+        <p>
+            Enjoy Customer Friendly deliveryand Package tracking
+        </p>
+
+    </div>
+
+    <!-- LOGIN FORM -->
+
+    <div id="loginForm">
+
+        <div class="form-group">
+
+            <label>
+                Username
+            </label>
+
+            <input
+                type="text"
+                id="username"
+                placeholder="Enter Username"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter Password"
+            >
+
+        </div>
+
+        <button
+            class="login-btn"
+            onclick="CustomerAdmin()">
+
+            Login To Dashboard
+
+        </button>
+
+        <div
+            style="
+            text-align:center;
+            margin-top:20px;
+            color:#bdbdbd;
+            ">
+
+            No customer account?
+
+            <span
+                onclick="showSignup()"
+                style="
+                color:#b07d57;
+                cursor:pointer;
+                ">
+
+                Create One
+
+            </span>
+
+        </div>
+
+    </div>
+
+    <!-- SIGNUP FORM -->
+
+    <div
+        id="signupForm"
+        style="display:none;">
+
+        <div class="form-group">
+
+            <label>
+                Create Username
+            </label>
+
+            <input
+                type="text"
+                id="newUsername"
+                placeholder="Create Username"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Create Password
+            </label>
+
+            <input
+                type="password"
+                id="newPassword"
+                placeholder="Create Password"
+            >
+
+        </div>
+
+        <button
+            class="login-btn"
+            onclick="createCustomer()">
+
+            Create Admin Account
+
+        </button>
+
+        <div
+            style="
+            text-align:center;
+            margin-top:20px;
+            color:#bdbdbd;
+            ">
+
+            Already have an account?
+
+            <span
+                onclick="showLogin()"
+                style="
+                color:#b07d57;
+                cursor:pointer;
+                ">
+
+                Login
+
+            </span>
+
+        </div>
+
+    </div>
+
+    <!-- MESSAGE -->
+
+    <div
+        class="message"
+        id="message">
+
+    </div>
+
+</div>
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+
+<script>
+
+/* =========================
+   TOGGLE FORMS
+========================= */
+
+
+function showSignup(){
+
+    document.getElementById("loginForm")
+    .style.display = "none";
+
+    document.getElementById("signupForm")
+    .style.display = "block";
+
+    document.getElementById("formTitle")
+    .innerText = "Create Admin";
+
+    document.getElementById("message")
+    .innerHTML = "";
+
+}
+
+function showLogin(){
+
+    document.getElementById("signupForm")
+    .style.display = "none";
+
+    document.getElementById("loginForm")
+    .style.display = "block";
+
+    document.getElementById("formTitle")
+    .innerText = "Customer Login";
+
+    document.getElementById("message")
+    .innerHTML = "";
+
+}
+
+/* =========================
+   CREATE Customer
+========================= */
+
+function createCustomer(){
+
+    const username =
+        document.getElementById("newUsername")
+        .value.trim();
+
+    const password =
+        document.getElementById("newPassword")
+        .value.trim();
+
+    const message =
+        document.getElementById("message");
+
+    if(username === "" || password === ""){
+
+        message.innerHTML =
+            "Please fill all fields";
+
+        return;
+
+    }
+
+    const existingUser =
+        localStorage.getItem("customerUser");
+
+    if(existingUser){
+
+        message.innerHTML =
+            "Customer account already exists";
+
+        return;
+
+    }
+
+    localStorage.setItem(
+        "customerUser",
+        username
+    );
+
+    localStorage.setItem(
+        "customerPass",
+        password
+    );
+
+    message.innerHTML = `
+        <span class="success">
+            Customer Account Created Successfully
+        </span>
+    `;
+
+    document.getElementById("newUsername")
+    .value = "";
+
+    document.getElementById("newPassword")
+    .value = "";
+
+    setTimeout(()=>{
+
+        showLogin();
+
+    },1500);
+
+}
+
+/* =========================
+   LOGIN ADMIN
+========================= */
+
+function loginCustomer(){
+
+    const username =
+        document.getElementById("username")
+        .value.trim();
+
+    const password =
+        document.getElementById("password")
+        .value.trim();
+
+    const message =
+        document.getElementById("message");
+
+    const savedUser =
+        localStorage.getItem("adminUser");
+
+    const savedPass =
+        localStorage.getItem("adminPass");
+
+    if(!savedUser || !savedPass){
+
+        message.innerHTML =
+            "No customer account found. Create one first.";
+
+        return;
+
+    }
+
+    if(
+        username === savedUser &&
+        password === savedPass
+    ){
+
+        message.innerHTML = `
+            <span class="success">
+                Login Successful
+            </span>
+        `;
+
+        localStorage.setItem(
+            "customerLoggedIn",
+            "true"
+        );
+
+        setTimeout(()=>{
+
+            window.location.href =
+            "tracking.html";
+
+        },1500);
+
+    }
+
+    else{
+
+        message.innerHTML =
+            "Invalid Username or Password";
+
+    }
+
+}
+
+/* =========================
+   AUTO LOGIN CHECK
+========================= */
+
+if(
+    localStorage.getItem("customerLoggedIn")
+    === "true"
+){
+
+    console.log("Customer already logged in");
+
+}
+   
+</script>
+</body>
+</html>
