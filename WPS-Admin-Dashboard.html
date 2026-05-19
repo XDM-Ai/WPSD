@@ -293,6 +293,46 @@ td{
 
 }
 
+   /* =========================
+   CUSTOM NOTIFICATION
+========================= */
+
+#notification{
+
+    position:fixed;
+
+    top:30px;
+    right:30px;
+
+    background:#1d1d1d;
+
+    color:white;
+
+    padding:18px 28px;
+
+    border-radius:18px;
+
+    border:1px solid
+    rgba(139,94,60,0.3);
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.4);
+
+    transform:translateX(400px);
+
+    transition:0.4s ease;
+
+    z-index:9999;
+
+    font-size:15px;
+
+}
+
+#notification.show{
+
+    transform:translateX(0);
+
+}
 </style>
 </head>
 
@@ -436,10 +476,35 @@ td{
 <!-- =========================
      JAVASCRIPT
 ========================= -->
-
 <script>
+/* =========================
+   CUSTOM NOTIFICATION
+========================= */
 
-let shipmentCount = 12;
+function showNotification(message){
+
+    const notification =
+        document.getElementById("notification");
+
+    const notificationText =
+        document.getElementById("notificationText");
+
+    notificationText.innerText = message;
+
+    notification.classList.add("show");
+
+    setTimeout(()=>{
+
+        notification.classList.remove("show");
+
+    },3000);
+
+}
+
+/* =========================
+   TRACKING ID GENERATOR
+========================= */
+
 function generateTrackingID(destination){
 
     let random =
@@ -448,18 +513,36 @@ function generateTrackingID(destination){
     const countryCodes = {
 
         nigeria: "NG",
+
         canada: "CA",
+
         usa: "US",
+        "united states": "US",
+        america: "US",
+
         germany: "DE",
+
         france: "FR",
+
         india: "IN",
+
         china: "CN",
+
         japan: "JP",
+
         australia: "AU",
+
         brazil: "BR",
+
         uk: "UK",
+        britain: "UK",
+        "united kingdom": "UK",
+
         turkey: "TR",
-        uae: "AE"
+
+        uae: "AE",
+        dubai: "AE",
+        "united arab emirates": "AE"
 
     };
 
@@ -470,6 +553,13 @@ function generateTrackingID(destination){
     return "WPS-" + random + "-" + code;
 
 }
+
+/* =========================
+   CREATE SHIPMENT
+========================= */
+
+let shipmentCount = 12;
+
 function createShipment(){
 
     const sender =
@@ -490,6 +580,8 @@ function createShipment(){
     const status =
         document.getElementById("status").value;
 
+    // VALIDATION
+
     if(
         sender === "" ||
         receiver === "" ||
@@ -498,13 +590,20 @@ function createShipment(){
         weight === ""
     ){
 
-        alert("Please fill all fields");
+        showNotification(
+            "Please fill all fields"
+        );
 
         return;
+
     }
 
-   const trackingID =
-generateTrackingID(destination);;
+    // GENERATE TRACKING ID
+
+    const trackingID =
+        generateTrackingID(destination);
+
+    // TABLE
 
     const table =
         document.getElementById("shipmentTable");
@@ -512,13 +611,19 @@ generateTrackingID(destination);;
     let statusClass = "";
 
     if(status === "Pending"){
+
         statusClass = "pending";
+
     }
     else if(status === "In Transit"){
+
         statusClass = "intransit";
+
     }
     else{
+
         statusClass = "delivered";
+
     }
 
     const row = `
@@ -534,9 +639,11 @@ generateTrackingID(destination);;
         <td>${destination}</td>
 
         <td>
+
             <span class="status ${statusClass}">
                 ${status}
             </span>
+
         </td>
 
     </tr>
@@ -545,15 +652,18 @@ generateTrackingID(destination);;
 
     table.innerHTML += row;
 
+    // UPDATE STATS
+
     shipmentCount++;
 
-    document.getElementById("activeCount").innerText =
-        shipmentCount;
+    document.getElementById("activeCount")
+    .innerText = shipmentCount;
 
     // SAVE TO LOCAL STORAGE
 
     let shipments =
-        JSON.parse(localStorage.getItem("shipments")) || [];
+        JSON.parse(localStorage.getItem("shipments"))
+        || [];
 
     shipments.push({
 
@@ -572,36 +682,64 @@ generateTrackingID(destination);;
         JSON.stringify(shipments)
     );
 
+    // SUCCESS NOTIFICATION
+
+    showNotification(
+        "Shipment Created Successfully"
+    );
+
     // CLEAR FORM
 
     document.getElementById("senderName").value = "";
+
     document.getElementById("receiverName").value = "";
+
     document.getElementById("destination").value = "";
+
     document.getElementById("packageType").value = "";
+
     document.getElementById("weight").value = "";
 
 }
 
+/* =========================
+   LOAD SHIPMENTS
+========================= */
+
 window.onload = function(){
 
     let shipments =
-        JSON.parse(localStorage.getItem("shipments")) || [];
+        JSON.parse(localStorage.getItem("shipments"))
+        || [];
 
     const table =
         document.getElementById("shipmentTable");
+
+    shipmentCount = shipments.length;
+
+    document.getElementById("activeCount")
+    .innerText = shipmentCount;
 
     shipments.forEach((shipment)=>{
 
         let statusClass = "";
 
         if(shipment.status === "Pending"){
+
             statusClass = "pending";
+
         }
-        else if(shipment.status === "In Transit"){
+        else if(
+            shipment.status === "In Transit"
+        ){
+
             statusClass = "intransit";
+
         }
         else{
+
             statusClass = "delivered";
+
         }
 
         const row = `
@@ -617,9 +755,11 @@ window.onload = function(){
             <td>${shipment.destination}</td>
 
             <td>
+
                 <span class="status ${statusClass}">
                     ${shipment.status}
                 </span>
+
             </td>
 
         </tr>
@@ -630,9 +770,11 @@ window.onload = function(){
 
     });
 
-};
-
+}
 </script>
+<div id="notification">
 
+    <span id="notificationText"></span>
+</div>
 </body>
 </html>
