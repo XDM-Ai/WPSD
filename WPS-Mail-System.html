@@ -581,7 +581,7 @@ function showNotification(message){
 }
 
 /* =========================
-   LOAD DATA
+   LOAD STORAGE DATA
 ========================= */
 
 let shipments =
@@ -598,7 +598,91 @@ const mailList =
 let activeShipment = null;
 
 /* =========================
-   CREATE MAIL CARD
+   SHIPMENT CARD
+========================= */
+
+function createMailCard(shipment,index){
+
+    const card =
+        document.createElement("div");
+
+    card.classList.add("mail-card");
+
+    card.innerHTML = `
+
+        <h3>
+            Shipment ${shipment.status}
+        </h3>
+
+        <p>
+            Tracking ID:
+            ${shipment.trackingID}
+        </p>
+
+        <div class="mail-time">
+
+            Shipment Notification
+
+        </div>
+
+    `;
+
+    card.onclick = function(){
+
+        openShipment(shipment);
+
+    };
+
+    mailList.appendChild(card);
+
+}
+
+/* =========================
+   OPEN SHIPMENT
+========================= */
+
+function openShipment(shipment){
+
+    activeShipment = shipment;
+
+    document.getElementById("messageStatus")
+    .innerText =
+        shipment.status;
+
+    document.getElementById("messageTitle")
+    .innerText =
+        "Shipment " + shipment.status;
+
+    document.getElementById("messageReceiver")
+    .innerText =
+        "Receiver: " + shipment.receiver;
+
+    document.getElementById("messageTracking")
+    .innerText =
+        "Tracking ID: " + shipment.trackingID;
+
+    document.getElementById("messageContent")
+    .innerText =
+        "Your shipment is currently marked as '" +
+        shipment.status +
+        "' and is moving through our logistics network.";
+
+    document.getElementById("trackingDestination")
+    .innerText =
+        "Destination: " + shipment.destination;
+
+    document.getElementById("trackingPackage")
+    .innerText =
+        "Package Type: " + shipment.packageType;
+
+    document.getElementById("trackingStatus")
+    .innerText =
+        "Current Status: " + shipment.status;
+
+}
+
+/* =========================
+   ADMIN MESSAGE CARD
 ========================= */
 
 function createAdminMessageCard(message,index){
@@ -636,11 +720,18 @@ function createAdminMessageCard(message,index){
     mailList.appendChild(card);
 
 }
+
 /* =========================
-   OPEN MESSAGE
+   OPEN ADMIN MESSAGE
 ========================= */
 
 function openAdminMessage(message){
+
+    activeShipment = null;
+
+    document.getElementById("messageStatus")
+    .innerText =
+        "Admin Notification";
 
     document.getElementById("messageTitle")
     .innerText =
@@ -671,21 +762,12 @@ function openAdminMessage(message){
         "Date: " + message.date;
 
 }
-   /* =========================
+
+/* =========================
    SEND REPLY
 ========================= */
 
 function sendReply(){
-
-    if(activeShipment === null){
-
-        showNotification(
-            "Please select a shipment first"
-        );
-
-        return;
-
-    }
 
     const reply =
         document.getElementById("replyText")
@@ -708,13 +790,11 @@ function sendReply(){
     replies.push({
 
         trackingID:
-            activeShipment.trackingID,
+            activeShipment
+            ? activeShipment.trackingID
+            : "ADMIN-MESSAGE",
 
-        receiver:
-            activeShipment.receiver,
-
-        message:
-            reply,
+        message:reply,
 
         date:
             new Date().toLocaleString()
@@ -736,30 +816,24 @@ function sendReply(){
 }
 
 /* =========================
-   LOAD SHIPMENTS
+   LOAD EVERYTHING
 ========================= */
 
 function loadShipments(){
 
     mailList.innerHTML = "";
 
-    /* LOAD SHIPMENTS */
-
-    shipments.reverse().forEach((shipment,index)=>{
+    shipments.forEach((shipment,index)=>{
 
         createMailCard(shipment,index);
 
     });
 
-    /* LOAD ADMIN MESSAGES */
-
-    messages.reverse().forEach((message,index)=>{
+    messages.forEach((message,index)=>{
 
         createAdminMessageCard(message,index);
 
     });
-
-    /* EMPTY STATE */
 
     if(
         shipments.length === 0 &&
@@ -784,6 +858,7 @@ function loadShipments(){
     }
 
 }
+
 /* =========================
    INITIALIZE
 ========================= */
@@ -795,6 +870,5 @@ window.onload = function(){
 }
 
 </script>
-
 </body>
 </html>
