@@ -237,7 +237,7 @@ body{
 
         <button
             class="login-btn"
-            onclick="CustomerAdmin()">
+            onclick="loginCustomer()">
 
             Login To Dashboard
 
@@ -305,7 +305,7 @@ body{
             class="login-btn"
             onclick="createCustomer()">
 
-            Create Admin Account
+            Create Customer Account
 
         </button>
 
@@ -364,7 +364,7 @@ function showSignup(){
     .style.display = "block";
 
     document.getElementById("formTitle")
-    .innerText = "Create Admin";
+    .innerText = "Create Customer";
 
     document.getElementById("message")
     .innerHTML = "";
@@ -459,6 +459,7 @@ function createCustomer(){
    LOGIN ADMIN
 ========================= */
 
+
 function loginCustomer(){
 
     const username =
@@ -473,10 +474,10 @@ function loginCustomer(){
         document.getElementById("message");
 
     const savedUser =
-        localStorage.getItem("adminUser");
+        localStorage.getItem("customerUser");
 
     const savedPass =
-        localStorage.getItem("adminPass");
+        localStorage.getItem("customerPass");
 
     if(!savedUser || !savedPass){
 
