@@ -272,15 +272,27 @@ body{
    ADMIN SECURITY
 ========================= */
 
-localStorage.setItem(
-    "adminUser",
-    "demben"
-);
+/* =========================
+   CREATE DEFAULT ADMIN
+========================= */
 
-localStorage.setItem(
-    "adminPass",
-    "secure123"
-);
+if(!localStorage.getItem("adminUser")){
+
+    localStorage.setItem(
+        "adminUser",
+        "demben"
+    );
+
+}
+
+if(!localStorage.getItem("adminPass")){
+
+    localStorage.setItem(
+        "adminPass",
+        "secure123"
+    );
+
+}
 /* =========================
    LOGIN FUNCTION
 ========================= */
@@ -327,7 +339,7 @@ function loginAdmin(){
         setTimeout(()=>{
 
             window.location.href =
-            "https://xdm-ai.github.io/WPSD/WPS-Admin-Dashboard.html";
+            "wps-admin-dashboard.html";
 
         },1500);
 
