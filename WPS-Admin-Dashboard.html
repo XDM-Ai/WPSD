@@ -440,44 +440,36 @@ td{
 <script>
 
 let shipmentCount = 12;
-function generateTrackingID(){
+function generateTrackingID(destination){
 
     let random =
         Math.floor(Math.random() * 90000) + 10000;
 
-    // COUNTRY CODES
+    const countryCodes = {
 
-    const countries = [
+        nigeria: "NG",
+        canada: "CA",
+        usa: "US",
+        germany: "DE",
+        france: "FR",
+        india: "IN",
+        china: "CN",
+        japan: "JP",
+        australia: "AU",
+        brazil: "BR",
+        uk: "UK",
+        turkey: "TR",
+        uae: "AE"
 
-        "US",
-        "UK",
-        "CA",
-        "DE",
-        "FR",
-        "AE",
-        "JP",
-        "AU",
-        "BR",
-        "ZA",
-        "CN",
-        "IN",
-        "NG"
+    };
 
-    ];
+    let code =
+        countryCodes[destination.toLowerCase()]
+        || "INT";
 
-    // RANDOM COUNTRY
-
-    let country =
-        countries[
-            Math.floor(
-                Math.random() * countries.length
-            )
-        ];
-
-    return "WPS-" + random + "-" + country;
+    return "WPS-" + random + "-" + code;
 
 }
-
 function createShipment(){
 
     const sender =
