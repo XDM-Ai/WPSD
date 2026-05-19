@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>WPS Mail System</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================
+   GLOBAL
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --black:#0b0b0b;
+    --dark:#151515;
+    --card:#1d1d1d;
+    --white:#f5f5f5;
+    --brown:#8b5e3c;
+    --lightBrown:#b07d57;
+    --gray:#9d9d9d;
+    --border:rgba(255,255,255,0.05);
+}
+
+body{
+    background:var(--black);
+    color:var(--white);
+    font-family:'Inter',sans-serif;
+    padding:40px;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+    margin-bottom:40px;
+}
+
+.header h1{
+    font-size:42px;
+    font-family:'Playfair Display',serif;
+}
+
+.header p{
+    color:var(--gray);
+    margin-top:10px;
+}
+
+/* =========================
+   INBOX
+========================= */
+
+.inbox{
+    display:flex;
+    flex-direction:column;
+    gap:25px;
+}
+
+/* =========================
+   MESSAGE CARD
+========================= */
+
+.message-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:28px;
+    padding:30px;
+    transition:0.3s;
+}
+
+.message-card:hover{
+    transform:translateY(-4px);
+    border-color:rgba(139,94,60,0.3);
+}
+
+.message-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.message-subject{
+    font-size:22px;
+    font-weight:600;
+}
+
+.message-date{
+    color:var(--gray);
+    font-size:13px;
+}
+
+.message-info{
+    margin-bottom:20px;
+    color:var(--lightBrown);
+    line-height:1.8;
+}
+
+.message-body{
+    line-height:1.8;
+    color:#e0e0e0;
+    margin-bottom:25px;
+}
+
+/* =========================
+   REPLY SECTION
+========================= */
+
+.reply-box textarea{
+    width:100%;
+    min-height:120px;
+    border:none;
+    outline:none;
+    background:#262626;
+    color:white;
+    padding:18px;
+    border-radius:18px;
+    resize:none;
+    font-family:'Inter',sans-serif;
+}
+
+.reply-btn{
+    margin-top:18px;
+    padding:15px 24px;
+    border:none;
+    border-radius:16px;
+    background:var(--brown);
+    color:white;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.reply-btn:hover{
+    background:var(--lightBrown);
+}
+
+/* =========================
+   EMPTY STATE
+========================= */
+
+.empty{
+    background:var(--card);
+    border-radius:30px;
+    padding:50px;
+    text-align:center;
+    color:var(--gray);
+    border:1px solid var(--border);
+}
+
+/* =========================
+   NOTIFICATION
+========================= */
+
+#notification{
+
+    position:fixed;
+
+    top:30px;
+    right:30px;
+
+    background:#1d1d1d;
+
+    color:white;
+
+    padding:18px 28px;
+
+    border-radius:18px;
+
+    border:1px solid
+    rgba(139,94,60,0.3);
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.4);
+
+    transform:translateX(400px);
+
+    transition:0.4s ease;
+
+    z-index:9999;
+
+    font-size:15px;
+
+}
+
+#notification.show{
+
+    transform:translateX(0);
+
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:768px){
+
+    body{
+        padding:20px;
+    }
+
+    .header h1{
+        font-size:32px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<div class="header">
+
+    <h1>Customer Mail System</h1>
+
+    <p>
+        Shipment updates and customer communication center
+    </p>
+
+</div>
+
+<!-- =========================
+     INBOX
+========================= -->
+
+<div class="inbox" id="inboxContainer">
+
+</div>
+
+<!-- =========================
+     NOTIFICATION
+========================= -->
+
+<div id="notification">
+
+    <span id="notificationText"></span>
+
+</div>
+
+<script>
+
+/* =========================
+   NOTIFICATION
+========================= */
+
+function showNotification(message){
+
+    const notification =
+        document.getElementById("notification");
+
+    const notificationText =
+        document.getElementById("notificationText");
+
+    notificationText.innerText = message;
+
+    notification.classList.add("show");
+
+    setTimeout(()=>{
+
+        notification.classList.remove("show");
+
+    },3000);
+
+}
+
+/* =========================
+   LOAD MESSAGES
+========================= */
+
+function loadMessages(){
+
+    const inbox =
+        document.getElementById("inboxContainer");
+
+    let messages =
+        JSON.parse(localStorage.getItem("messages"))
+        || [];
+
+    if(messages.length === 0){
+
+        inbox.innerHTML = `
+
+        <div class="empty">
+
+            <h2>No Messages Yet</h2>
+
+            <p style="margin-top:15px;">
+                Shipment communication will appear here.
+            </p>
+
+        </div>
+
+        `;
+
+        return;
+
+    }
+
+    inbox.innerHTML = "";
+
+    messages.reverse().forEach((message,index)=>{
+
+        const card = `
+
+        <div class="message-card">
+
+            <div class="message-top">
+
+                <div class="message-subject">
+                    ${message.subject}
+                </div>
+
+                <div class="message-date">
+                    ${message.date}
+                </div>
+
+            </div>
+
+            <div class="message-info">
+
+                <div>
+                    Tracking ID:
+                    ${message.trackingID}
+                </div>
+
+                <div>
+                    Sent To:
+                    ${message.email}
+                </div>
+
+            </div>
+
+            <div class="message-body">
+
+                ${message.message}
+
+            </div>
+
+            <!-- REPLY SECTION -->
+
+            <div class="reply-box">
+
+                <textarea
+                    id="reply-${index}"
+                    placeholder="Reply to admin..."
+                ></textarea>
+
+                <button
+                    class="reply-btn"
+                    onclick="sendReply('${message.trackingID}', ${index})">
+
+                    Send Reply
+
+                </button>
+
+            </div>
+
+        </div>
+
+        `;
+
+        inbox.innerHTML += card;
+
+    });
+
+}
+
+/* =========================
+   SEND REPLY
+========================= */
+
+function sendReply(trackingID,index){
+
+    const replyText =
+        document.getElementById(`reply-${index}`)
+        .value;
+
+    if(replyText === ""){
+
+        showNotification(
+            "Please write a reply"
+        );
+
+        return;
+
+    }
+
+    let replies =
+        JSON.parse(localStorage.getItem("replies"))
+        || [];
+
+    replies.push({
+
+        trackingID,
+        reply:replyText,
+        date:new Date().toLocaleString()
+
+    });
+
+    localStorage.setItem(
+        "replies",
+        JSON.stringify(replies)
+    );
+
+    document.getElementById(
+        `reply-${index}`
+    ).value = "";
+
+    showNotification(
+        "Reply Sent Successfully"
+    );
+
+}
+
+/* =========================
+   INITIALIZE
+========================= */
+
+window.onload = function(){
+
+    loadMessages();
+
+}
+
+</script>
+
+</body>
+</html>
