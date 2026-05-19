@@ -332,6 +332,30 @@ td{
 
     transform:translateX(0);
 
+   .form-section textarea{
+
+    width:100%;
+
+    min-height:150px;
+
+    padding:18px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:18px;
+
+    background:#262626;
+
+    color:white;
+
+    resize:none;
+
+    font-family:'Inter',sans-serif;
+
+}
+
 }
 </style>
 </head>
@@ -478,18 +502,6 @@ td{
         <textarea
             id="messageContent"
             placeholder="Write message..."
-            style="
-                width:100%;
-                min-height:150px;
-                padding:18px;
-                border:none;
-                outline:none;
-                border-radius:18px;
-                background:#262626;
-                color:white;
-                resize:none;
-                font-family:Inter,sans-serif;
-            "
         ></textarea>
 
     </div>
@@ -748,6 +760,10 @@ function createShipment(){
     showNotification(
         "Shipment Created Successfully"
     );
+
+   document.getElementById(
+    "messageTrackingID"
+).value = trackingID;
 
     // CLEAR FORM
 
