@@ -546,6 +546,37 @@ td{
 
 </div>
 
+   <!-- =========================
+     CUSTOMER REPLIES
+========================= -->
+
+<div class="table-section">
+
+    <h2>Customer Replies</h2>
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>Tracking ID</th>
+                <th>Customer</th>
+                <th>Reply</th>
+                <th>Date</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="replyTable">
+
+        </tbody>
+
+    </table>
+
+</div>
+
 <!-- =========================
      JAVASCRIPT
 ========================= -->
@@ -870,12 +901,91 @@ function sendMessage(){
     .value = "";
 
 }
+
+/* =========================
+   LOAD CUSTOMER REPLIES
+========================= */
+
+function loadReplies(){
+
+    const replyTable =
+        document.getElementById("replyTable");
+
+    let replies =
+        JSON.parse(localStorage.getItem("replies"))
+        || [];
+
+    replyTable.innerHTML = "";
+
+    if(replies.length === 0){
+
+        replyTable.innerHTML = `
+
+        <tr>
+
+            <td colspan="4"
+                style="
+                    padding:30px;
+                    text-align:center;
+                    color:#9d9d9d;
+                ">
+
+                No customer replies yet
+
+            </td>
+
+        </tr>
+
+        `;
+
+        return;
+
+    }
+
+    replies.reverse().forEach((reply)=>{
+
+        const row = `
+
+        <tr>
+
+            <td>
+                ${reply.trackingID}
+            </td>
+
+            <td>
+                ${reply.receiver || "Customer"}
+            </td>
+
+            <td>
+                ${reply.message}
+            </td>
+
+            <td>
+                ${reply.date}
+            </td>
+
+        </tr>
+
+        `;
+
+        replyTable.innerHTML += row;
+
+    });
+
+}
+   
 /* =========================
    LOAD SHIPMENTS
 ========================= */
 
-window.onload = function(){
 
+
+   window.onload = function(){
+
+    loadShipments();
+
+    loadReplies();
+ 
     let shipments =
         JSON.parse(localStorage.getItem("shipments"))
         || [];
