@@ -355,6 +355,7 @@ body{
    TOGGLE FORMS
 ========================= */
 
+
 function showSignup(){
 
     document.getElementById("loginForm")
@@ -413,8 +414,6 @@ function createAdmin(){
 
     }
 
-    /* CHECK IF ADMIN EXISTS */
-
     const existingUser =
         localStorage.getItem("adminUser");
 
@@ -426,8 +425,6 @@ function createAdmin(){
         return;
 
     }
-
-    /* SAVE ADMIN */
 
     localStorage.setItem(
         "adminUser",
@@ -445,15 +442,11 @@ function createAdmin(){
         </span>
     `;
 
-    /* CLEAR FIELDS */
-
     document.getElementById("newUsername")
     .value = "";
 
     document.getElementById("newPassword")
     .value = "";
-
-    /* SWITCH TO LOGIN */
 
     setTimeout(()=>{
 
@@ -486,8 +479,6 @@ function loginAdmin(){
     const savedPass =
         localStorage.getItem("adminPass");
 
-    /* CHECK IF ACCOUNT EXISTS */
-
     if(!savedUser || !savedPass){
 
         message.innerHTML =
@@ -496,8 +487,6 @@ function loginAdmin(){
         return;
 
     }
-
-    /* LOGIN VALIDATION */
 
     if(
         username === savedUser &&
@@ -510,21 +499,19 @@ function loginAdmin(){
             </span>
         `;
 
-        /* SAVE LOGIN SESSION */
-
         localStorage.setItem(
             "adminLoggedIn",
             "true"
         );
 
-        /* REDIRECT */
-
         setTimeout(()=>{
 
-    window.location.href =
-    "WPS-Admin-Dashboard.html";
+            window.location.href =
+            "WPS-Admin-Dashboard.html";
 
-},1500);
+        },1500);
+
+    }
 
     else{
 
@@ -547,7 +534,7 @@ if(
     console.log("Admin already logged in");
 
 }
-
+   
 </script>
 </body>
-</html>
+</html> Is this it did i do this correctly this time
