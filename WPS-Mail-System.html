@@ -601,7 +601,7 @@ let activeShipment = null;
    CREATE MAIL CARD
 ========================= */
 
-function createMailCard(shipment,index){
+function createAdminMessageCard(message,index){
 
     const card =
         document.createElement("div");
@@ -611,17 +611,17 @@ function createMailCard(shipment,index){
     card.innerHTML = `
 
         <h3>
-            Shipment ${shipment.status}
+            ${message.subject}
         </h3>
 
         <p>
             Tracking ID:
-            ${shipment.trackingID}
+            ${message.trackingID}
         </p>
 
         <div class="mail-time">
 
-            ${shipment.destination}
+            Admin Message
 
         </div>
 
@@ -629,55 +629,49 @@ function createMailCard(shipment,index){
 
     card.onclick = function(){
 
-        openMessage(shipment);
+        openAdminMessage(message);
 
     };
 
     mailList.appendChild(card);
 
 }
-
 /* =========================
    OPEN MESSAGE
 ========================= */
 
-function openMessage(shipment){
-
-    activeShipment = shipment;
+function openAdminMessage(message){
 
     document.getElementById("messageTitle")
     .innerText =
-        "Shipment " + shipment.status;
+        message.subject;
 
     document.getElementById("messageReceiver")
     .innerText =
-        "Receiver: " + shipment.receiver;
+        "Sent To: " + message.email;
 
     document.getElementById("messageTracking")
     .innerText =
-        "Tracking ID: " + shipment.trackingID;
+        "Tracking ID: " + message.trackingID;
 
     document.getElementById("messageContent")
     .innerText =
-        "Your shipment is currently marked as '" +
-        shipment.status +
-        "' and is being processed through our logistics network.";
+        message.message;
 
     document.getElementById("trackingDestination")
     .innerText =
-        "Destination: " + shipment.destination;
+        "Message Type: Customer Notification";
 
     document.getElementById("trackingPackage")
     .innerText =
-        "Package Type: " + shipment.packageType;
+        "Communication: Admin -> Customer";
 
     document.getElementById("trackingStatus")
     .innerText =
-        "Current Status: " + shipment.status;
+        "Date: " + message.date;
 
 }
-
-/* =========================
+   /* =========================
    SEND REPLY
 ========================= */
 
@@ -747,25 +741,9 @@ function sendReply(){
 
 function loadShipments(){
 
-    if(shipments.length === 0){
+    mailList.innerHTML = "";
 
-        mailList.innerHTML = `
-
-        <div class="empty">
-
-            <h2>No Shipment Messages</h2>
-
-            <p style="margin-top:15px;">
-                Shipment updates will appear here.
-            </p>
-
-        </div>
-
-        `;
-
-        return;
-
-    }
+    /* LOAD SHIPMENTS */
 
     shipments.reverse().forEach((shipment,index)=>{
 
@@ -773,8 +751,39 @@ function loadShipments(){
 
     });
 
-}
+    /* LOAD ADMIN MESSAGES */
 
+    messages.reverse().forEach((message,index)=>{
+
+        createAdminMessageCard(message,index);
+
+    });
+
+    /* EMPTY STATE */
+
+    if(
+        shipments.length === 0 &&
+        messages.length === 0
+    ){
+
+        mailList.innerHTML = `
+
+        <div class="empty">
+
+            <h2>No Messages Yet</h2>
+
+            <p style="margin-top:15px;">
+                Shipment updates and admin messages
+                will appear here.
+            </p>
+
+        </div>
+
+        `;
+
+    }
+
+}
 /* =========================
    INITIALIZE
 ========================= */
