@@ -503,7 +503,8 @@ function createShipment(){
         return;
     }
 
-    const trackingID = generateTrackingID();
+   const trackingID =
+generateTrackingID(destination);;
 
     const table =
         document.getElementById("shipmentTable");
