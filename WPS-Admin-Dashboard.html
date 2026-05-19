@@ -946,6 +946,40 @@ function sendMessage(){
     });
 
 }
+
+   function loadAdminMessages(){
+
+    const messages =
+        JSON.parse(
+            localStorage.getItem("customerMessages")
+        ) || [];
+
+    const container =
+        document.getElementById("adminInbox");
+
+    container.innerHTML = "";
+
+    messages.forEach((msg)=>{
+
+        container.innerHTML += `
+
+            <div class="mail-card">
+
+                <h3>${msg.subject}</h3>
+
+                <p>${msg.message}</p>
+
+                <small>
+                    From: ${msg.sender}
+                </small>
+
+            </div>
+
+        `;
+
+    });
+
+}
 </script>
 <div id="notification">
 
