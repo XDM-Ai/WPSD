@@ -6,7 +6,8 @@
 
 <title>World Postal Delivery Service</title>
 
-<!-- Google Fonts -->
+<!-- GOOGLE FONTS -->
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -15,7 +16,7 @@
 <style>
 
 /* =========================
-   GLOBAL STYLES
+   GLOBAL
 ========================= */
 
 *{
@@ -27,11 +28,12 @@
 :root{
     --black:#0b0b0b;
     --dark:#161616;
+    --card:#1d1d1d;
     --white:#f5f5f5;
     --brown:#8b5e3c;
     --lightBrown:#b07d57;
-    --gray:#2b2b2b;
-    --softGray:#9d9d9d;
+    --gray:#9d9d9d;
+    --border:rgba(255,255,255,0.05);
 }
 
 body{
@@ -55,7 +57,7 @@ nav{
     top:0;
     background:rgba(11,11,11,0.95);
     backdrop-filter:blur(10px);
-    border-bottom:1px solid rgba(255,255,255,0.05);
+    border-bottom:1px solid var(--border);
     z-index:1000;
 }
 
@@ -84,7 +86,7 @@ nav{
 
 .logo-text p{
     font-size:12px;
-    color:var(--softGray);
+    color:var(--gray);
     letter-spacing:2px;
 }
 
@@ -95,28 +97,29 @@ nav{
 
 .nav-links a{
     text-decoration:none;
-    color:var(--white);
+    color:white;
     transition:0.3s;
 }
 
 .nav-links a:hover{
-    color:var(--brown);
+    color:var(--lightBrown);
 }
 
 /* =========================
-   HERO SECTION
+   HERO
 ========================= */
 
 .hero{
-    min-height:90vh;
+    min-height:85vh;
     display:flex;
     align-items:center;
     justify-content:center;
-    padding:60px 8%;
+    padding:80px 8%;
 }
 
 .hero-content{
-    max-width:700px;
+    max-width:750px;
+    text-align:center;
 }
 
 .hero-content span{
@@ -126,31 +129,32 @@ nav{
 }
 
 .hero-content h1{
-    font-family:'Playfair Display',serif;
     font-size:70px;
     line-height:1.1;
-    margin:20px 0;
+    margin:25px 0;
+    font-family:'Playfair Display',serif;
 }
 
 .hero-content p{
-    color:#cfcfcf;
-    line-height:1.8;
-    margin-bottom:30px;
+    line-height:1.9;
+    color:#d0d0d0;
+    margin-bottom:35px;
 }
 
 .hero-buttons{
     display:flex;
     gap:20px;
+    justify-content:center;
     flex-wrap:wrap;
 }
 
 .btn{
-    padding:15px 30px;
+    padding:16px 30px;
     border:none;
-    border-radius:50px;
+    border-radius:18px;
     cursor:pointer;
-    font-size:15px;
     transition:0.3s;
+    font-size:15px;
 }
 
 .primary-btn{
@@ -160,18 +164,17 @@ nav{
 
 .primary-btn:hover{
     background:var(--lightBrown);
-    transform:translateY(-2px);
 }
 
 .secondary-btn{
     background:transparent;
-    border:1px solid rgba(255,255,255,0.2);
+    border:1px solid rgba(255,255,255,0.1);
     color:white;
 }
 
 .secondary-btn:hover{
     border-color:var(--brown);
-    color:var(--brown);
+    color:var(--lightBrown);
 }
 
 /* =========================
@@ -179,7 +182,7 @@ nav{
 ========================= */
 
 .tracking-section{
-    padding:80px 8%;
+    padding:90px 8%;
 }
 
 .section-title{
@@ -187,46 +190,42 @@ nav{
 }
 
 .section-title h2{
-    font-family:'Playfair Display',serif;
     font-size:45px;
+    font-family:'Playfair Display',serif;
     margin-bottom:10px;
 }
 
 .section-title p{
-    color:#bdbdbd;
+    color:#c5c5c5;
 }
 
-.tracking-card{
-    background:var(--dark);
-    border:1px solid rgba(255,255,255,0.05);
+.search-box{
+    background:var(--card);
     border-radius:30px;
-    padding:40px;
+    border:1px solid var(--border);
+    padding:35px;
 }
 
-.tracking-form{
-    display:flex;
-    gap:15px;
-    flex-wrap:wrap;
-}
-
-.tracking-form input{
-    flex:1;
-    min-width:250px;
+.search-box input{
+    width:100%;
     padding:18px;
     border:none;
     outline:none;
-    border-radius:15px;
-    background:#222;
+    border-radius:18px;
+    background:#262626;
     color:white;
     font-size:15px;
 }
 
 .track-btn{
-    padding:18px 30px;
+    width:100%;
+    margin-top:20px;
+    padding:18px;
     border:none;
-    border-radius:15px;
+    border-radius:18px;
     background:var(--brown);
     color:white;
+    font-size:15px;
     cursor:pointer;
     transition:0.3s;
 }
@@ -235,69 +234,75 @@ nav{
     background:var(--lightBrown);
 }
 
-#trackingResult{
+/* =========================
+   RESULT BOX
+========================= */
 
-    margin-top:30px;
-
+.result-box{
+    margin-top:40px;
+    background:var(--card);
+    border-radius:30px;
+    border:1px solid var(--border);
+    padding:35px;
+    display:none;
 }
 
-.tracking-card{
+.result-box h2{
+    margin-bottom:25px;
+    font-family:'Playfair Display',serif;
+}
 
-    background:#1d1d1d;
-
-    padding:30px;
-
-    border-radius:24px;
-
-    border:1px solid
-    rgba(255,255,255,0.05);
-
+.result-info{
     line-height:2;
-
-    color:white;
-
+    color:#e0e0e0;
 }
 
 /* =========================
-   RESULT CARD
+   STATUS
 ========================= */
-
-.result-card{
-    margin-top:35px;
-    display:none;
-    background:#1d1d1d;
-    border-radius:25px;
-    padding:30px;
-    border:1px solid rgba(255,255,255,0.05);
-}
 
 .status{
     display:inline-block;
+    margin-top:20px;
     padding:10px 18px;
-    background:rgba(139,94,60,0.15);
-    border:1px solid rgba(139,94,60,0.3);
-    color:var(--lightBrown);
     border-radius:50px;
-    margin-bottom:25px;
+    font-size:14px;
 }
 
-.result-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-    gap:25px;
+.pending{
+    background:rgba(255,255,255,0.08);
+    color:#d0d0d0;
 }
 
-.info-box h4{
-    color:#9f9f9f;
-    margin-bottom:8px;
-    font-size:13px;
-    text-transform:uppercase;
-    letter-spacing:1px;
+.intransit{
+    background:rgba(139,94,60,0.15);
+    color:var(--lightBrown);
 }
 
-.info-box p{
-    font-size:18px;
-    font-weight:600;
+.delivered{
+    background:rgba(0,255,100,0.1);
+    color:#69ff9c;
+}
+
+/* =========================
+   TIMELINE
+========================= */
+
+.timeline{
+    margin-top:35px;
+    border-top:1px solid var(--border);
+    padding-top:25px;
+}
+
+.timeline h3{
+    margin-bottom:20px;
+}
+
+.timeline-item{
+    margin-bottom:18px;
+    padding-left:20px;
+    border-left:2px solid var(--brown);
+    color:#d7d7d7;
 }
 
 /* =========================
@@ -305,7 +310,7 @@ nav{
 ========================= */
 
 .services{
-    padding:80px 8%;
+    padding:90px 8%;
 }
 
 .service-grid{
@@ -316,10 +321,10 @@ nav{
 
 .service-card{
     background:var(--dark);
-    border-radius:25px;
+    border-radius:28px;
     padding:35px;
+    border:1px solid var(--border);
     transition:0.3s;
-    border:1px solid rgba(255,255,255,0.05);
 }
 
 .service-card:hover{
@@ -344,8 +349,8 @@ nav{
 }
 
 .service-card p{
-    color:#bdbdbd;
-    line-height:1.7;
+    color:#cfcfcf;
+    line-height:1.8;
 }
 
 /* =========================
@@ -356,8 +361,7 @@ footer{
     padding:40px 8%;
     text-align:center;
     color:#9f9f9f;
-    border-top:1px solid rgba(255,255,255,0.05);
-    margin-top:60px;
+    border-top:1px solid var(--border);
 }
 
 /* =========================
@@ -398,19 +402,24 @@ footer{
         </div>
 
         <div class="logo-text">
+
             <h2>World Postal Delivery</h2>
+
             <p>DELIVERY NETWORK</p>
+
         </div>
 
     </div>
 
-   <div class="nav-links">
-    <a href="#">Home</a>
-    <a href="#">Track</a>
-    <a href="#">Services</a>
-    <a href="login.html">Login</a>
-    <a href="dashboard.html">Dashboard</a>
-</div>
+    <div class="nav-links">
+
+        <a href="#">Home</a>
+        <a href="#tracking">Track</a>
+        <a href="#services">Services</a>
+        <a href="customer-login.html">Customer Login</a>
+        <a href="admin-login.html">Admin Login</a>
+
+    </div>
 
 </nav>
 
@@ -425,26 +434,30 @@ footer{
         <span>GLOBAL DELIVERY & LOGISTICS</span>
 
         <h1>
-            Fast & Secure Delivery Tracking Experience
+            Fast & Secure Shipment Tracking
         </h1>
 
         <p>
-            Track shipments, manage deliveries, monitor transit progress,
-            and stay updated with your package status in real time.
+            Monitor deliveries, track shipment progress,
+            receive delivery updates, and stay connected
+            with our logistics network in real time.
         </p>
 
         <div class="hero-buttons">
 
-            <button class="btn primary-btn"
-onclick="document.querySelector('.tracking-section')
-.scrollIntoView({behavior:'smooth'})">
+            <button
+                class="btn primary-btn"
+                onclick="document.getElementById('tracking')
+                .scrollIntoView({behavior:'smooth'})">
 
-    Track Shipment
+                Track Shipment
 
-</button>
+            </button>
 
             <button class="btn secondary-btn">
+
                 Learn More
+
             </button>
 
         </div>
@@ -457,71 +470,49 @@ onclick="document.querySelector('.tracking-section')
      TRACKING SECTION
 ========================= -->
 
-<section class="tracking-section">
+<section
+    class="tracking-section"
+    id="tracking">
 
     <div class="section-title">
+
         <h2>Track Your Shipment</h2>
+
         <p>
             Enter your tracking number below
         </p>
+
     </div>
 
-    <div class="tracking-card">
+    <div class="search-box">
 
-        <div class="tracking-form">
+        <input
+            type="text"
+            id="trackingInput"
+            placeholder="Enter Tracking ID"
+        >
 
-            <input
-                  type="text"
-                  id="trackingInput"
-                  placeholder="Enter Tracking ID">
+        <button
+            class="track-btn"
+            onclick="trackShipment()">
 
-            <button 
-                  onclick="trackShipment()">
-                  Track Package
+            Track Shipment
+
         </button>
 
-        </div>
+        <!-- RESULT -->
 
-        <!-- RESULT CARD -->
+        <div
+            class="result-box"
+            id="resultBox">
 
-         <div id="trackingResult">
-                    
+            <h2>
+                Shipment Details
+            </h2>
 
-        <div class="result-card" id="resultCard">
-
-            <div class="status" id="shipmentStatus">
-                In Transit
-            </div>
-
-            <div class="result-grid">
-<!-- 
-                <div class="info-box">
-                    <h4>Tracking Number</h4>
-                    <p id="trackingNumber">
-                        WPS-20495-NG
-                    </p>
-                </div>
-
-                <div class="info-box">
-                    <h4>Receiver</h4>
-                    <p id="receiverName">
-                        Zehra Bora
-                    </p>
-                </div>
-
-                <div class="info-box">
-                    <h4>Destination</h4>
-                    <p id="destination">
-                        Istanbul, Turkey
-                    </p>
-                </div>
-
-                <div class="info-box">
-                    <h4>Estimated Arrival</h4>
-                    <p id="arrival">
-                        May 15, 2026
-                    </p>
-                </div> -->
+            <div
+                class="result-info"
+                id="resultInfo">
 
             </div>
 
@@ -535,13 +526,18 @@ onclick="document.querySelector('.tracking-section')
      SERVICES
 ========================= -->
 
-<section class="services">
+<section
+    class="services"
+    id="services">
 
     <div class="section-title">
+
         <h2>Our Services</h2>
+
         <p>
-            Logistics solutions designed for modern delivery operations
+            Modern logistics and delivery solutions
         </p>
+
     </div>
 
     <div class="service-grid">
@@ -555,8 +551,8 @@ onclick="document.querySelector('.tracking-section')
             <h3>Package Tracking</h3>
 
             <p>
-                Monitor shipments and delivery progress in real time
-                using advanced tracking systems.
+                Track shipments and monitor delivery
+                progress in real time.
             </p>
 
         </div>
@@ -570,8 +566,8 @@ onclick="document.querySelector('.tracking-section')
             <h3>Courier Delivery</h3>
 
             <p>
-                Fast and secure transport services for local and
-                international deliveries.
+                Fast and secure local and international
+                shipping operations.
             </p>
 
         </div>
@@ -585,8 +581,8 @@ onclick="document.querySelector('.tracking-section')
             <h3>Mail Notifications</h3>
 
             <p>
-                Stay informed with automated shipment and delivery
-                notification updates.
+                Customers receive shipment updates
+                and logistics notifications instantly.
             </p>
 
         </div>
@@ -600,116 +596,138 @@ onclick="document.querySelector('.tracking-section')
 ========================= -->
 
 <footer>
-    © 2026 World Postal Delivery Service — All Rights Reserved
+
+    © 2026 World Postal Delivery Service
+
 </footer>
 
 <!-- =========================
      JAVASCRIPT
 ========================= -->
+
 <script>
+
+/* =========================
+   TRACK SHIPMENT
+========================= */
 
 function trackShipment(){
 
-    const trackingInput =
+    const trackingID =
         document.getElementById("trackingInput")
-        .value
-        .trim();
+        .value.trim();
 
     const resultBox =
-        document.getElementById("trackingResult");
+        document.getElementById("resultBox");
 
-    // GET SHIPMENTS
+    const resultInfo =
+        document.getElementById("resultInfo");
 
     let shipments =
         JSON.parse(localStorage.getItem("shipments"))
         || [];
 
-    // FIND SHIPMENT
-
     const shipment =
         shipments.find(item =>
-            item.trackingID === trackingInput
+            item.trackingID === trackingID
         );
 
-    // IF FOUND
+    resultBox.style.display = "block";
 
-    if(shipment){
+    if(!shipment){
 
-        resultBox.innerHTML = `
+        resultInfo.innerHTML = `
 
-        <div class="tracking-card">
+            <div style="color:#ff8a8a;">
 
-            <h2>
-                Shipment Located
-            </h2>
+                Tracking ID not found.
 
-            <br>
-
-            <p>
-                <strong>Tracking ID:</strong>
-                ${shipment.trackingID}
-            </p>
-
-            <p>
-                <strong>Sender:</strong>
-                ${shipment.sender}
-            </p>
-
-            <p>
-                <strong>Receiver:</strong>
-                ${shipment.receiver}
-            </p>
-
-            <p>
-                <strong>Destination:</strong>
-                ${shipment.destination}
-            </p>
-
-            <p>
-                <strong>Package Type:</strong>
-                ${shipment.packageType}
-            </p>
-
-            <p>
-                <strong>Weight:</strong>
-                ${shipment.weight}
-            </p>
-
-            <p>
-                <strong>Status:</strong>
-                ${shipment.status}
-            </p>
-
-        </div>
+            </div>
 
         `;
 
+        return;
+
     }
 
-    // IF NOT FOUND
+    let statusClass = "";
+
+    if(shipment.status === "Pending"){
+
+        statusClass = "pending";
+
+    }
+
+    else if(shipment.status === "In Transit"){
+
+        statusClass = "intransit";
+
+    }
 
     else{
 
-        resultBox.innerHTML = `
+        statusClass = "delivered";
 
-        <div class="tracking-card">
+    }
 
-            <h2>
-                Shipment Not Found
-            </h2>
+    resultInfo.innerHTML = `
 
-            <br>
+        <p>
+            <strong>Tracking ID:</strong>
+            ${shipment.trackingID}
+        </p>
 
-            <p>
-                Please check the tracking ID
-                and try again.
-            </p>
+        <p>
+            <strong>Sender:</strong>
+            ${shipment.sender}
+        </p>
+
+        <p>
+            <strong>Receiver:</strong>
+            ${shipment.receiver}
+        </p>
+
+        <p>
+            <strong>Destination:</strong>
+            ${shipment.destination}
+        </p>
+
+        <p>
+            <strong>Package Type:</strong>
+            ${shipment.packageType}
+        </p>
+
+        <p>
+            <strong>Weight:</strong>
+            ${shipment.weight}
+        </p>
+
+        <div class="status ${statusClass}">
+
+            ${shipment.status}
 
         </div>
 
-        `;
+        <div class="timeline">
 
-    }
+            <h3>Shipment Timeline</h3>
+
+            <div class="timeline-item">
+                Shipment Created
+            </div>
+
+            <div class="timeline-item">
+                Shipment Processing
+            </div>
+
+            <div class="timeline-item">
+                Current Status:
+                ${shipment.status}
+            </div>
+
+        </div>
+
+    `;
 
 }
 
