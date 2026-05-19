@@ -366,6 +366,9 @@ function showSignup(){
     document.getElementById("formTitle")
     .innerText = "Create Admin";
 
+    document.getElementById("message")
+    .innerHTML = "";
+
 }
 
 function showLogin(){
@@ -378,6 +381,9 @@ function showLogin(){
 
     document.getElementById("formTitle")
     .innerText = "Admin Login";
+
+    document.getElementById("message")
+    .innerHTML = "";
 
 }
 
@@ -398,10 +404,7 @@ function createAdmin(){
     const message =
         document.getElementById("message");
 
-    if(
-        username === "" ||
-        password === ""
-    ){
+    if(username === "" || password === ""){
 
         message.innerHTML =
             "Please fill all fields";
@@ -409,6 +412,22 @@ function createAdmin(){
         return;
 
     }
+
+    /* CHECK IF ADMIN EXISTS */
+
+    const existingUser =
+        localStorage.getItem("adminUser");
+
+    if(existingUser){
+
+        message.innerHTML =
+            "Admin account already exists";
+
+        return;
+
+    }
+
+    /* SAVE ADMIN */
 
     localStorage.setItem(
         "adminUser",
@@ -422,15 +441,25 @@ function createAdmin(){
 
     message.innerHTML = `
         <span class="success">
-            Admin Account Created
+            Admin Account Created Successfully
         </span>
     `;
+
+    /* CLEAR FIELDS */
+
+    document.getElementById("newUsername")
+    .value = "";
+
+    document.getElementById("newPassword")
+    .value = "";
+
+    /* SWITCH TO LOGIN */
 
     setTimeout(()=>{
 
         showLogin();
 
-    },1000);
+    },1500);
 
 }
 
@@ -457,6 +486,19 @@ function loginAdmin(){
     const savedPass =
         localStorage.getItem("adminPass");
 
+    /* CHECK IF ACCOUNT EXISTS */
+
+    if(!savedUser || !savedPass){
+
+        message.innerHTML =
+            "No admin account found. Create one first.";
+
+        return;
+
+    }
+
+    /* LOGIN VALIDATION */
+
     if(
         username === savedUser &&
         password === savedPass
@@ -468,10 +510,14 @@ function loginAdmin(){
             </span>
         `;
 
+        /* SAVE LOGIN SESSION */
+
         localStorage.setItem(
             "adminLoggedIn",
             "true"
         );
+
+        /* REDIRECT */
 
         setTimeout(()=>{
 
@@ -491,7 +537,19 @@ function loginAdmin(){
 
 }
 
-</script>
+/* =========================
+   AUTO LOGIN CHECK
+========================= */
 
+if(
+    localStorage.getItem("adminLoggedIn")
+    === "true"
+){
+
+    console.log("Admin already logged in");
+
+}
+
+</script>
 </body>
 </html>
