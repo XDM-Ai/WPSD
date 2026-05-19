@@ -1,1 +1,232 @@
+<DOCTYPE html>
+  <html>
+    <head>
+      
+    </head>
+    <body>
+      <a href="#">Dashboard</a>
+<a href="#">Shipments</a>
+<a href="#">Tracking</a>
+<a href="#">Customers</a>
+<a href="#">Messages</a>
+<a href="#">Notifications</a>
+      <script>
+        /* =========================
+   LOAD ALL COMMUNICATIONS
+========================= */
 
+function loadShipments(){
+
+    mailList.innerHTML = "";
+
+    // LOAD SHIPMENTS
+
+    shipments.forEach((shipment,index)=>{
+
+        createShipmentCard(shipment,index);
+
+    });
+
+    // LOAD ADMIN MESSAGES
+
+    messages.forEach((message,index)=>{
+
+        createAdminMessageCard(message,index);
+
+    });
+
+    // LOAD CUSTOMER REPLIES
+
+    let replies =
+        JSON.parse(localStorage.getItem("replies"))
+        || [];
+
+    replies.forEach((reply,index)=>{
+
+        createReplyCard(reply,index);
+
+    });
+
+    // EMPTY STATE
+
+    if(
+        shipments.length === 0 &&
+        messages.length === 0 &&
+        replies.length === 0
+    ){
+
+        mailList.innerHTML = `
+
+        <div class="empty">
+
+            <h2>No Messages Yet</h2>
+
+            <p style="margin-top:15px;">
+                Shipment updates and customer
+                communication will appear here.
+            </p>
+
+        </div>
+
+        `;
+
+    }
+
+}
+        /* =========================
+   CREATE SHIPMENT CARD
+========================= */
+
+function createShipmentCard(shipment,index){
+
+    const card =
+        document.createElement("div");
+
+    card.classList.add("mail-card");
+
+    card.innerHTML = `
+
+        <h3>
+            Shipment ${shipment.status}
+        </h3>
+
+        <p>
+            Tracking ID:
+            ${shipment.trackingID}
+        </p>
+
+        <div class="mail-time">
+
+            Shipment Update
+
+        </div>
+
+    `;
+
+    card.onclick = function(){
+
+        openShipment(shipment);
+
+    };
+
+    mailList.appendChild(card);
+
+}
+/* =========================
+   OPEN SHIPMENT
+========================= */
+
+function openShipment(shipment){
+
+    activeShipment = shipment;
+
+    document.getElementById("messageTitle")
+    .innerText =
+        "Shipment " + shipment.status;
+
+    document.getElementById("messageReceiver")
+    .innerText =
+        "Receiver: " + shipment.receiver;
+
+    document.getElementById("messageTracking")
+    .innerText =
+        "Tracking ID: " + shipment.trackingID;
+
+    document.getElementById("messageContent")
+    .innerText =
+        "Shipment currently marked as '" +
+        shipment.status +
+        "' in the logistics network.";
+
+    document.getElementById("trackingDestination")
+    .innerText =
+        "Destination: " + shipment.destination;
+
+    document.getElementById("trackingPackage")
+    .innerText =
+        "Package Type: " + shipment.packageType;
+
+    document.getElementById("trackingStatus")
+    .innerText =
+        "Current Status: " + shipment.status;
+
+}
+        /* =========================
+   CUSTOMER REPLY CARD
+========================= */
+
+function createReplyCard(reply,index){
+
+    const card =
+        document.createElement("div");
+
+    card.classList.add("mail-card");
+
+    card.innerHTML = `
+
+        <h3>
+            Customer Reply
+        </h3>
+
+        <p>
+            Tracking ID:
+            ${reply.trackingID}
+        </p>
+
+        <div class="mail-time">
+
+            Customer Message
+
+        </div>
+
+    `;
+
+    card.onclick = function(){
+
+        openReply(reply);
+
+    };
+
+    mailList.appendChild(card);
+
+}
+
+        /* =========================
+   OPEN CUSTOMER REPLY
+========================= */
+
+function openReply(reply){
+
+    document.getElementById("messageTitle")
+    .innerText =
+        "Customer Reply";
+
+    document.getElementById("messageReceiver")
+    .innerText =
+        "Customer Communication";
+
+    document.getElementById("messageTracking")
+    .innerText =
+        "Tracking ID: " + reply.trackingID;
+
+    document.getElementById("messageContent")
+    .innerText =
+        reply.message;
+
+    document.getElementById("trackingDestination")
+    .innerText =
+        "Reply Type: Customer -> Admin";
+
+    document.getElementById("trackingPackage")
+    .innerText =
+        "Communication Channel: Mail System";
+
+    document.getElementById("trackingStatus")
+    .innerText =
+        "Date: " + reply.date;
+
+}
+        
+      </script>
+    </body>
+  </html>
