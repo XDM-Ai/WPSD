@@ -239,22 +239,27 @@ nav{
 ========================= */
 
 .result-box{
+
     margin-top:40px;
-    background:var(--card);
-    border-radius:30px;
-    border:1px solid var(--border);
-    padding:35px;
+    background:#161616;
+    border-radius:35px;
+    border:1px solid rgba(255,255,255,0.05);
+    padding:40px;
     display:none;
+
+}
+
+.result-info{
+
+    line-height:2.5;
+    color:#f0f0f0;
+    font-size:18px;
+
 }
 
 .result-box h2{
     margin-bottom:25px;
     font-family:'Playfair Display',serif;
-}
-
-.result-info{
-    line-height:2;
-    color:#e0e0e0;
 }
 
 /* =========================
@@ -299,10 +304,13 @@ nav{
 }
 
 .timeline-item{
-    margin-bottom:18px;
-    padding-left:20px;
+
+    margin-bottom:25px;
+    padding-left:25px;
     border-left:2px solid var(--brown);
     color:#d7d7d7;
+    font-size:18px;
+
 }
 
 /* =========================
@@ -670,67 +678,73 @@ function trackShipment(){
 
     }
 
-    resultInfo.innerHTML = `
+   resultInfo.innerHTML = `
 
-        <p>
-            <strong>Tracking ID:</strong>
-            ${shipment.trackingID}
-        </p>
+    <h2 style="
+        margin-bottom:35px;
+        font-family:'Playfair Display',serif;
+        font-size:42px;
+    ">
+        Shipment Details
+    </h2>
 
-        <p>
-            <strong>Sender:</strong>
-            ${shipment.sender}
-        </p>
+    <p>
+        <strong>Tracking ID:</strong>
+        ${shipment.trackingID}
+    </p>
 
-        <p>
-            <strong>Receiver:</strong>
-            ${shipment.receiver}
-        </p>
+    <p>
+        <strong>Sender:</strong>
+        ${shipment.sender}
+    </p>
 
-        <p>
-            <strong>Destination:</strong>
-            ${shipment.destination}
-        </p>
+    <p>
+        <strong>Receiver:</strong>
+        ${shipment.receiver}
+    </p>
 
-        <p>
-            <strong>Package Type:</strong>
-            ${shipment.packageType}
-        </p>
+    <p>
+        <strong>Destination:</strong>
+        ${shipment.destination}
+    </p>
 
-        <p>
-            <strong>Weight:</strong>
-            ${shipment.weight}
-        </p>
+    <p>
+        <strong>Package Type:</strong>
+        ${shipment.packageType}
+    </p>
 
-        <div class="status ${statusClass}">
+    <p>
+        <strong>Weight:</strong>
+        ${shipment.weight}
+    </p>
 
+    <div class="status ${statusClass}">
+
+        ${shipment.status}
+
+    </div>
+
+    <div class="timeline">
+
+        <h3>Shipment Timeline</h3>
+
+        <div class="timeline-item">
+            Shipment Created
+        </div>
+
+        <div class="timeline-item">
+            Shipment Processing
+        </div>
+
+        <div class="timeline-item">
+            Current Status:
             ${shipment.status}
-
         </div>
 
-        <div class="timeline">
+    </div>
 
-            <h3>Shipment Timeline</h3>
-
-            <div class="timeline-item">
-                Shipment Created
-            </div>
-
-            <div class="timeline-item">
-                Shipment Processing
-            </div>
-
-            <div class="timeline-item">
-                Current Status:
-                ${shipment.status}
-            </div>
-
-        </div>
-
-    `;
-
-}
-
+`;
+   
 </script>
 
 </body>
