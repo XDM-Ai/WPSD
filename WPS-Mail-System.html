@@ -869,6 +869,53 @@ window.onload = function(){
 
 }
 
+   function sendCustomerMessage(){
+
+    const subject =
+        document.getElementById("subject").value;
+
+    const messageText =
+        document.getElementById("messageText").value;
+
+    const currentUser =
+        localStorage.getItem("customerUser");
+
+    /* GET OLD MESSAGES */
+
+    let messages =
+        JSON.parse(
+            localStorage.getItem("customerMessages")
+        ) || [];
+
+    /* CREATE NEW MESSAGE */
+
+    const newMessage = {
+
+        sender: currentUser,
+
+        subject: subject,
+
+        message: messageText,
+
+        time: new Date().toLocaleString()
+
+    };
+
+    /* ADD MESSAGE */
+
+    messages.push(newMessage);
+
+    /* SAVE */
+
+    localStorage.setItem(
+        "customerMessages",
+        JSON.stringify(messages)
+    );
+
+    alert("Message Sent");
+
+}
+
 </script>
 </body>
 </html>
