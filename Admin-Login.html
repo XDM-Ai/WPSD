@@ -193,7 +193,9 @@ body{
 
     <div class="login-header">
 
-        <h1>Admin Login</h1>
+        <h1 id="formTitle">
+            Admin Login
+        </h1>
 
         <p>
             Secure access to shipment management
@@ -202,93 +204,135 @@ body{
 
     </div>
 
-<!-- =========================
-     CREATE ADMIN
-========================= -->
+    <!-- LOGIN FORM -->
 
-<div class="form-group">
+    <div id="loginForm">
 
-    <label>
-        Create Admin Username
-    </label>
+        <div class="form-group">
 
-    <input
-        type="text"
-        id="newUsername"
-        placeholder="Create Username"
-    >
+            <label>
+                Username
+            </label>
 
-</div>
+            <input
+                type="text"
+                id="username"
+                placeholder="Enter Username"
+            >
 
-<div class="form-group">
+        </div>
 
-    <label>
-        Create Admin Password
-    </label>
+        <div class="form-group">
 
-    <input
-        type="password"
-        id="newPassword"
-        placeholder="Create Password"
-    >
+            <label>
+                Password
+            </label>
 
-</div>
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter Password"
+            >
 
-<button
-    class="login-btn"
-    onclick="createAdmin()">
+        </div>
 
-    Create Admin Account
+        <button
+            class="login-btn"
+            onclick="loginAdmin()">
 
-</button>
+            Login To Dashboard
 
-<br><br>
-   
-<!-- =========================
-     LOGIN CARD
-========================= -->
+        </button>
 
-    <!-- USERNAME -->
+        <div
+            style="
+            text-align:center;
+            margin-top:20px;
+            color:#bdbdbd;
+            ">
 
-    <div class="form-group">
+            No admin account?
 
-        <label>
-            Admin Username
-        </label>
+            <span
+                onclick="showSignup()"
+                style="
+                color:#b07d57;
+                cursor:pointer;
+                ">
 
-        <input
-            type="text"
-            id="username"
-            placeholder="Enter Username"
-        >
+                Create One
 
-    </div>
+            </span>
 
-    <!-- PASSWORD -->
-
-    <div class="form-group">
-
-        <label>
-            Password
-        </label>
-
-        <input
-            type="password"
-            id="password"
-            placeholder="Enter Password"
-        >
+        </div>
 
     </div>
 
-    <!-- LOGIN BUTTON -->
+    <!-- SIGNUP FORM -->
 
-    <button
-        class="login-btn"
-        onclick="loginAdmin()">
+    <div
+        id="signupForm"
+        style="display:none;">
 
-        Login To Dashboard
+        <div class="form-group">
 
-    </button>
+            <label>
+                Create Username
+            </label>
+
+            <input
+                type="text"
+                id="newUsername"
+                placeholder="Create Username"
+            >
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Create Password
+            </label>
+
+            <input
+                type="password"
+                id="newPassword"
+                placeholder="Create Password"
+            >
+
+        </div>
+
+        <button
+            class="login-btn"
+            onclick="createAdmin()">
+
+            Create Admin Account
+
+        </button>
+
+        <div
+            style="
+            text-align:center;
+            margin-top:20px;
+            color:#bdbdbd;
+            ">
+
+            Already have an account?
+
+            <span
+                onclick="showLogin()"
+                style="
+                color:#b07d57;
+                cursor:pointer;
+                ">
+
+                Login
+
+            </span>
+
+        </div>
+
+    </div>
 
     <!-- MESSAGE -->
 
@@ -310,13 +354,49 @@ body{
    CREATE ADMIN ACCOUNT
 ========================= */
 
+<script>
+
+/* =========================
+   TOGGLE FORMS
+========================= */
+
+function showSignup(){
+
+    document.getElementById("loginForm")
+    .style.display = "none";
+
+    document.getElementById("signupForm")
+    .style.display = "block";
+
+    document.getElementById("formTitle")
+    .innerText = "Create Admin";
+
+}
+
+function showLogin(){
+
+    document.getElementById("signupForm")
+    .style.display = "none";
+
+    document.getElementById("loginForm")
+    .style.display = "block";
+
+    document.getElementById("formTitle")
+    .innerText = "Admin Login";
+
+}
+
+/* =========================
+   CREATE ADMIN
+========================= */
+
 function createAdmin(){
 
-    const newUsername =
+    const username =
         document.getElementById("newUsername")
         .value.trim();
 
-    const newPassword =
+    const password =
         document.getElementById("newPassword")
         .value.trim();
 
@@ -324,12 +404,12 @@ function createAdmin(){
         document.getElementById("message");
 
     if(
-        newUsername === "" ||
-        newPassword === ""
+        username === "" ||
+        password === ""
     ){
 
         message.innerHTML =
-            "Please fill all signup fields";
+            "Please fill all fields";
 
         return;
 
@@ -337,24 +417,30 @@ function createAdmin(){
 
     localStorage.setItem(
         "adminUser",
-        newUsername
+        username
     );
 
     localStorage.setItem(
         "adminPass",
-        newPassword
+        password
     );
 
     message.innerHTML = `
         <span class="success">
-            Admin account created successfully
+            Admin Account Created
         </span>
     `;
+
+    setTimeout(()=>{
+
+        showLogin();
+
+    },1000);
 
 }
 
 /* =========================
-   LOGIN FUNCTION
+   LOGIN ADMIN
 ========================= */
 
 function loginAdmin(){
@@ -383,7 +469,7 @@ function loginAdmin(){
 
         message.innerHTML = `
             <span class="success">
-                Login Successful...
+                Login Successful
             </span>
         `;
 
@@ -410,7 +496,7 @@ function loginAdmin(){
 
 }
 
-</script>q
+</script>
 
 </body>
 </html>
