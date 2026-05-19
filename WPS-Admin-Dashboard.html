@@ -443,6 +443,67 @@ td{
 
     </div>
 
+   <!-- =========================
+     MESSAGE PANEL
+========================= -->
+
+<div class="form-section">
+
+    <h2>Send Customer Message</h2>
+
+    <div class="form-grid">
+
+        <input
+            type="email"
+            id="customerEmail"
+            placeholder="Customer Email"
+        >
+
+        <input
+            type="text"
+            id="messageTrackingID"
+            placeholder="Tracking ID"
+        >
+
+        <input
+            type="text"
+            id="messageSubject"
+            placeholder="Message Subject"
+        >
+
+    </div>
+
+    <div style="margin-top:20px;">
+
+        <textarea
+            id="messageContent"
+            placeholder="Write message..."
+            style="
+                width:100%;
+                min-height:150px;
+                padding:18px;
+                border:none;
+                outline:none;
+                border-radius:18px;
+                background:#262626;
+                color:white;
+                resize:none;
+                font-family:Inter,sans-serif;
+            "
+        ></textarea>
+
+    </div>
+
+    <button
+        class="create-btn"
+        onclick="sendMessage()">
+
+        Send Message
+
+    </button>
+
+</div>
+
     <!-- TABLE -->
 
     <div class="table-section">
@@ -702,6 +763,97 @@ function createShipment(){
 
 }
 
+
+
+   /* =========================
+   SEND MESSAGE
+========================= */
+
+function sendMessage(){
+
+    const email =
+        document.getElementById("customerEmail")
+        .value;
+
+    const trackingID =
+        document.getElementById("messageTrackingID")
+        .value;
+
+    const subject =
+        document.getElementById("messageSubject")
+        .value;
+
+    const message =
+        document.getElementById("messageContent")
+        .value;
+
+    // VALIDATION
+
+    if(
+        email === "" ||
+        trackingID === "" ||
+        subject === "" ||
+        message === ""
+    ){
+
+        showNotification(
+            "Please complete all message fields"
+        );
+
+        return;
+
+    }
+
+    // GET OLD MESSAGES
+
+    let messages =
+        JSON.parse(localStorage.getItem("messages"))
+        || [];
+
+    // CREATE NEW MESSAGE
+
+    const newMessage = {
+
+        email,
+        trackingID,
+        subject,
+        message,
+
+        date:
+        new Date().toLocaleString()
+
+    };
+
+    // SAVE MESSAGE
+
+    messages.push(newMessage);
+
+    localStorage.setItem(
+        "messages",
+        JSON.stringify(messages)
+    );
+
+    // SUCCESS
+
+    showNotification(
+        "Message Sent Successfully"
+    );
+
+    // CLEAR FORM
+
+    document.getElementById("customerEmail")
+    .value = "";
+
+    document.getElementById("messageTrackingID")
+    .value = "";
+
+    document.getElementById("messageSubject")
+    .value = "";
+
+    document.getElementById("messageContent")
+    .value = "";
+
+}
 /* =========================
    LOAD SHIPMENTS
 ========================= */
