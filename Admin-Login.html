@@ -272,33 +272,15 @@ body{
    ADMIN SECURITY
 ========================= */
 
-if(
-    localStorage.getItem("adminLoggedIn")
-    !== "true"
-){
+localStorage.setItem(
+    "adminUser",
+    "demben"
+);
 
-    window.location.href =
-    "admin-login.html";
-
-}
-   if(!localStorage.getItem("adminUser")){
-
-    localStorage.setItem(
-        "adminUser",
-        "admin"
-    );
-
-}
-
-if(!localStorage.getItem("adminPass")){
-
-    localStorage.setItem(
-        "adminPass",
-        "wps123"
-    );
-
-}
-
+localStorage.setItem(
+    "adminPass",
+    "secure123"
+);
 /* =========================
    LOGIN FUNCTION
 ========================= */
