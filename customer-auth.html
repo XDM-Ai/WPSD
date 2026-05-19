@@ -418,14 +418,18 @@ function createCustomer(){
 
     if(existingUser){
 
-        message.innerHTML =
-            "Customer account already exists";
+    const confirmReplace =
+        confirm(
+            "Customer account exists. Replace it?"
+        );
+
+    if(!confirmReplace){
 
         return;
 
     }
 
-    localStorage.setItem(
+}alStorage.setItem(
         "customerUser",
         username
     );
