@@ -1,17 +1,393 @@
 <!DOCTYPE html>
-  <html>
-    <head>
-      
-    </head>
-    <body>
-      <a href="#">Dashboard</a>
-<a href="#">Shipments</a>
-<a href="#">Tracking</a>
-<a href="#">Customers</a>
-<a href="#">Messages</a>
-<a href="#">Notifications</a>
-      <script>
-        /* =========================
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8" />
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0"/>
+
+<title>WPS Admin Mail</title>
+
+<!-- GOOGLE FONTS -->
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+rel="stylesheet">
+
+<style>
+
+/* =========================
+   GLOBAL
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+
+    --black:#0b0b0b;
+    --card:#1d1d1d;
+    --white:#f5f5f5;
+    --brown:#8b5e3c;
+    --lightBrown:#b07d57;
+    --gray:#9d9d9d;
+    --border:rgba(255,255,255,0.05);
+
+}
+
+body{
+
+    background:var(--black);
+    color:var(--white);
+    font-family:'Inter',sans-serif;
+    display:flex;
+    min-height:100vh;
+
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+
+    width:260px;
+    background:#101010;
+    padding:30px 20px;
+    border-right:1px solid var(--border);
+
+}
+
+.sidebar h2{
+
+    font-family:'Playfair Display',serif;
+    margin-bottom:40px;
+
+}
+
+.sidebar a{
+
+    display:block;
+    color:white;
+    text-decoration:none;
+    padding:15px;
+    border-radius:14px;
+    margin-bottom:12px;
+    transition:0.3s;
+
+}
+
+.sidebar a:hover{
+
+    background:rgba(139,94,60,0.15);
+    color:var(--lightBrown);
+
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+
+    flex:1;
+    display:grid;
+    grid-template-columns:380px 1fr;
+
+}
+
+/* =========================
+   MAIL LIST
+========================= */
+
+.mail-panel{
+
+    border-right:1px solid var(--border);
+    background:#121212;
+    overflow-y:auto;
+    height:100vh;
+
+}
+
+.mail-header{
+
+    padding:30px;
+    border-bottom:1px solid var(--border);
+
+}
+
+.mail-header h1{
+
+    font-family:'Playfair Display',serif;
+    margin-bottom:10px;
+
+}
+
+.mail-header p{
+
+    color:var(--gray);
+
+}
+
+#mailList{
+
+    padding:20px;
+
+}
+
+/* =========================
+   MAIL CARD
+========================= */
+
+.mail-card{
+
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:22px;
+    padding:22px;
+    margin-bottom:18px;
+    cursor:pointer;
+    transition:0.3s;
+
+}
+
+.mail-card:hover{
+
+    transform:translateY(-3px);
+    border-color:rgba(139,94,60,0.3);
+
+}
+
+.mail-card h3{
+
+    margin-bottom:10px;
+
+}
+
+.mail-card p{
+
+    color:var(--gray);
+
+}
+
+.mail-time{
+
+    margin-top:15px;
+    color:var(--lightBrown);
+    font-size:13px;
+
+}
+
+/* =========================
+   MESSAGE VIEW
+========================= */
+
+.message-view{
+
+    padding:40px;
+
+}
+
+.message-box{
+
+    background:var(--card);
+    border-radius:28px;
+    padding:40px;
+    border:1px solid var(--border);
+
+}
+
+.message-box h2{
+
+    margin-bottom:20px;
+    font-size:34px;
+
+}
+
+.message-box p{
+
+    margin-bottom:15px;
+    color:#d7d7d7;
+
+}
+
+#messageContent{
+
+    margin-top:30px;
+    line-height:2;
+
+}
+
+.info-box{
+
+    margin-top:30px;
+    background:#262626;
+    padding:25px;
+    border-radius:20px;
+
+}
+
+.info-box p{
+
+    margin-bottom:10px;
+
+}
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty{
+
+    background:var(--card);
+    padding:40px;
+    border-radius:25px;
+    text-align:center;
+    color:var(--gray);
+
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:900px){
+
+    body{
+        flex-direction:column;
+    }
+
+    .main{
+        grid-template-columns:1fr;
+    }
+
+    .sidebar{
+        width:100%;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- =========================
+     SIDEBAR
+========================= -->
+
+<div class="sidebar">
+
+    <h2>WPS Mail</h2>
+
+    <a href="#">Dashboard</a>
+
+    <a href="#">Shipments</a>
+
+    <a href="#">Tracking</a>
+
+    <a href="#">Customers</a>
+
+    <a href="#">Messages</a>
+
+    <a href="#">Notifications</a>
+
+</div>
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<div class="main">
+
+    <!-- LEFT PANEL -->
+
+    <div class="mail-panel">
+
+        <div class="mail-header">
+
+            <h1>Inbox</h1>
+
+            <p>
+                Shipment updates and customer communication
+            </p>
+
+        </div>
+
+        <div id="mailList"></div>
+
+    </div>
+
+    <!-- RIGHT PANEL -->
+
+    <div class="message-view">
+
+        <div class="message-box">
+
+            <h2 id="messageTitle">
+
+                Select Message
+
+            </h2>
+
+            <p id="messageReceiver"></p>
+
+            <p id="messageTracking"></p>
+
+            <div id="messageContent">
+
+                Open a shipment or message from the inbox.
+
+            </div>
+
+            <div class="info-box">
+
+                <p id="trackingDestination"></p>
+
+                <p id="trackingPackage"></p>
+
+                <p id="trackingStatus"></p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+/* =========================
+   STORAGE
+========================= */
+
+const mailList =
+    document.getElementById("mailList");
+
+let shipments =
+    JSON.parse(localStorage.getItem("shipments"))
+    || [];
+
+let messages =
+    JSON.parse(localStorage.getItem("messages"))
+    || [];
+
+let activeShipment = null;
+
+/* =========================
    LOAD ALL COMMUNICATIONS
 ========================= */
 
@@ -73,8 +449,9 @@ function loadShipments(){
     }
 
 }
-        /* =========================
-   CREATE SHIPMENT CARD
+
+/* =========================
+   SHIPMENT CARD
 ========================= */
 
 function createShipmentCard(shipment,index){
@@ -112,46 +489,48 @@ function createShipmentCard(shipment,index){
     mailList.appendChild(card);
 
 }
+
 /* =========================
-   OPEN SHIPMENT
+   ADMIN MESSAGE CARD
 ========================= */
 
-function openShipment(shipment){
+function createAdminMessageCard(message,index){
 
-    activeShipment = shipment;
+    const card =
+        document.createElement("div");
 
-    document.getElementById("messageTitle")
-    .innerText =
-        "Shipment " + shipment.status;
+    card.classList.add("mail-card");
 
-    document.getElementById("messageReceiver")
-    .innerText =
-        "Receiver: " + shipment.receiver;
+    card.innerHTML = `
 
-    document.getElementById("messageTracking")
-    .innerText =
-        "Tracking ID: " + shipment.trackingID;
+        <h3>
+            ${message.subject}
+        </h3>
 
-    document.getElementById("messageContent")
-    .innerText =
-        "Shipment currently marked as '" +
-        shipment.status +
-        "' in the logistics network.";
+        <p>
+            Tracking ID:
+            ${message.trackingID}
+        </p>
 
-    document.getElementById("trackingDestination")
-    .innerText =
-        "Destination: " + shipment.destination;
+        <div class="mail-time">
 
-    document.getElementById("trackingPackage")
-    .innerText =
-        "Package Type: " + shipment.packageType;
+            Admin Message
 
-    document.getElementById("trackingStatus")
-    .innerText =
-        "Current Status: " + shipment.status;
+        </div>
+
+    `;
+
+    card.onclick = function(){
+
+        openAdminMessage(message);
+
+    };
+
+    mailList.appendChild(card);
 
 }
-        /* =========================
+
+/* =========================
    CUSTOMER REPLY CARD
 ========================= */
 
@@ -191,7 +570,83 @@ function createReplyCard(reply,index){
 
 }
 
-        /* =========================
+/* =========================
+   OPEN SHIPMENT
+========================= */
+
+function openShipment(shipment){
+
+    activeShipment = shipment;
+
+    document.getElementById("messageTitle")
+    .innerText =
+        "Shipment " + shipment.status;
+
+    document.getElementById("messageReceiver")
+    .innerText =
+        "Receiver: " + shipment.receiver;
+
+    document.getElementById("messageTracking")
+    .innerText =
+        "Tracking ID: " + shipment.trackingID;
+
+    document.getElementById("messageContent")
+    .innerText =
+        "Shipment currently marked as '" +
+        shipment.status +
+        "' in the logistics network.";
+
+    document.getElementById("trackingDestination")
+    .innerText =
+        "Destination: " + shipment.destination;
+
+    document.getElementById("trackingPackage")
+    .innerText =
+        "Package Type: " + shipment.packageType;
+
+    document.getElementById("trackingStatus")
+    .innerText =
+        "Current Status: " + shipment.status;
+
+}
+
+/* =========================
+   OPEN ADMIN MESSAGE
+========================= */
+
+function openAdminMessage(message){
+
+    document.getElementById("messageTitle")
+    .innerText =
+        message.subject;
+
+    document.getElementById("messageReceiver")
+    .innerText =
+        "Sent To: " + message.email;
+
+    document.getElementById("messageTracking")
+    .innerText =
+        "Tracking ID: " + message.trackingID;
+
+    document.getElementById("messageContent")
+    .innerText =
+        message.message;
+
+    document.getElementById("trackingDestination")
+    .innerText =
+        "Message Type: Customer Notification";
+
+    document.getElementById("trackingPackage")
+    .innerText =
+        "Communication: Admin -> Customer";
+
+    document.getElementById("trackingStatus")
+    .innerText =
+        "Date: " + message.date;
+
+}
+
+/* =========================
    OPEN CUSTOMER REPLY
 ========================= */
 
@@ -226,7 +681,18 @@ function openReply(reply){
         "Date: " + reply.date;
 
 }
-        
-      </script>
-    </body>
-  </html>
+
+/* =========================
+   INITIALIZE
+========================= */
+
+window.onload = function(){
+
+    loadShipments();
+
+}
+
+</script>
+
+</body>
+</html>
