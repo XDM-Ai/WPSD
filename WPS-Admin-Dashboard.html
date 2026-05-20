@@ -94,6 +94,22 @@ body{
     color:var(--lightBrown);
 }
 
+   .menu span{
+
+    background:var(--brown);
+
+    color:white;
+
+    padding:4px 10px;
+
+    border-radius:30px;
+
+    font-size:12px;
+
+    margin-left:8px;
+
+}
+
 /* =========================
    MAIN CONTENT
 ========================= */
@@ -331,14 +347,15 @@ td{
 #notification.show{
 
     transform:translateX(0);
+}
 
-   .form-section textarea{
+.form-section textarea{
 
     width:100%;
 
     min-height:150px;
 
-    padding:300px;
+    padding:20px;
 
     border:none;
 
@@ -353,8 +370,41 @@ td{
     resize:none;
 
     font-family:'Inter',sans-serif;
+}
+
+   .mail-card{
+
+    background:#262626;
+
+    padding:20px;
+
+    border-radius:18px;
+
+    margin-bottom:18px;
+
+    border:1px solid rgba(255,255,255,0.05);
 
 }
+
+.mail-card h3{
+
+    margin-bottom:10px;
+
+}
+
+.mail-card p{
+
+    color:#d0d0d0;
+
+    line-height:1.7;
+
+    margin-bottom:12px;
+
+}
+
+.mail-card small{
+
+    color:var(--gray);
 
 }
 </style>
@@ -376,7 +426,10 @@ td{
     <div class="menu">
         <!-- <a href="#admin-box">Dashboard</a>
         <a href="#shipment">Shipments</a> -->
-        <a href="admin-mail.html">Customer Notifications</a>
+        <a href="admin-mail.html">
+    Customer Notifications
+    <span id="adminNotificationCount">0</span>
+</a>
        <a href="#tracking">Tracking</a>
        <a href="Admin-Login.html">Logout</a>
     </div>
@@ -542,6 +595,18 @@ td{
         </table>
 
     </div>
+
+</div>
+
+   <!-- =========================
+     ADMIN INBOX
+========================= -->
+
+<div class="table-section">
+
+    <h2>Customer Notifications</h2>
+
+    <div id="adminInbox"></div>
 
 </div>
 <!-- =========================
@@ -876,18 +941,32 @@ function sendMessage(){
 
 
 
-   window.onload = function(){
+  /* =========================
+   LOAD DATA
+========================= */
+
+window.onload = function(){
 
     loadShipments();
 
-    loadReplies();
- 
+    loadAdminMessages();
+
+};
+
+/* =========================
+   LOAD SHIPMENTS
+========================= */
+
+function loadShipments(){
+
     let shipments =
         JSON.parse(localStorage.getItem("shipments"))
         || [];
 
     const table =
         document.getElementById("shipmentTable");
+
+    table.innerHTML = "";
 
     shipmentCount = shipments.length;
 
