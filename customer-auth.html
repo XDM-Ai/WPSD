@@ -25,6 +25,17 @@
     box-sizing:border-box;
 }
 
+
+/* =========================
+   GLOBAL
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
 :root{
 
     --black:#0b0b0b;
@@ -52,7 +63,11 @@ body{
 
 }
 
-   .container{
+   /* =========================
+   CONTAINER
+========================= */
+
+.container{
     width:100%;
     max-width:1150px;
     min-height:700px;
@@ -68,25 +83,6 @@ body{
 /* =========================
    LEFT PANEL
 ========================= */
-
-.left-panel{
-    background:linear-gradient(135deg,#101010,#1a1a1a);
-    padding:70px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-}
-
-.logo h2{
-    font-family:'Playfair Display',serif;
-    font-size:42px;
-}
-
-.logo p{
-    color:var(--gray);
-    letter-spacing:3px;
-    margin-top:10px;
-}
 
 .left-panel{
 
@@ -148,9 +144,10 @@ body{
 
 }
 
-   .left-panel h1{
+.left-panel h1{
 
     font-size:64px;
+
     line-height:1.05;
 
     margin:45px 0 30px;
@@ -161,9 +158,16 @@ body{
 
 }
 
-   .left-panel p{
+.left-panel span{
+
+    color:var(--lightBrown);
+
+}
+
+.left-panel p{
 
     line-height:2;
+
     color:#d0d0d0;
 
     font-size:16px;
@@ -171,8 +175,10 @@ body{
     max-width:500px;
 
 }
-
-   .right-panel{
+/* =========================
+   RIGHT PANEL
+========================= */
+.right-panel{
 
     display:flex;
     align-items:center;
@@ -188,7 +194,12 @@ body{
     );
 
 }
-   
+
+.form-container{
+    width:100%;
+    max-width:420px;
+}
+
 /* =========================
    LOGIN CARD
 ========================= */
@@ -209,7 +220,7 @@ body{
 
     border:1px solid rgba(255,255,255,0.06);
 
-    padding:50px;
+    padding:60px 50px;
 
     box-shadow:
     0 25px 60px rgba(0,0,0,0.45);
@@ -217,7 +228,7 @@ body{
     backdrop-filter:blur(12px);
 
 }
-
+   
 /* =========================
    HEADER
 ========================= */
@@ -225,58 +236,32 @@ body{
 .login-header{
 
     text-align:center;
-    margin-bottom:40px;
+
+    margin-bottom:45px;
 
 }
 
 .login-header h1{
 
     font-family:'Playfair Display',serif;
+
     font-size:42px;
-    margin-bottom:10px;
+
+    margin-bottom:14px;
 
 }
 
 .login-header p{
 
     color:var(--gray);
-    line-height:1.8;
+
+    line-height:1.9;
+
+    font-size:15px;
 
 }
 
 /* =========================
-   FORM
-========================= */
-
-.form-group input{
-
-    width:100%;
-    padding:18px 20px;
-
-    border:1px solid transparent;
-    outline:none;
-
-    border-radius:18px;
-
-    background:#262626;
-    color:white;
-
-    font-size:15px;
-
-    transition:0.3s;
-
-}
-
-.form-group input:focus{
-
-    border:1px solid var(--lightBrown);
-
-    box-shadow:
-    0 0 0 4px rgba(176,125,87,0.15);
-
-}
-
-   /* =========================
    FORM
 ========================= */
 
@@ -332,68 +317,6 @@ body{
     0 0 0 4px rgba(176,125,87,0.15);
 
 }
-
-/* =========================
-   LOGIN CARD
-========================= */
-
-.login-card{
-
-    width:100%;
-    max-width:500px;
-
-    background:
-    linear-gradient(
-        180deg,
-        rgba(35,35,35,0.95),
-        rgba(22,22,22,0.96)
-    );
-
-    border-radius:35px;
-
-    border:1px solid rgba(255,255,255,0.06);
-
-    padding:60px 50px;
-
-    box-shadow:
-    0 25px 60px rgba(0,0,0,0.45);
-
-    backdrop-filter:blur(12px);
-
-}
-
-/* =========================
-   HEADER
-========================= */
-
-.login-header{
-
-    text-align:center;
-
-    margin-bottom:45px;
-
-}
-
-.login-header h1{
-
-    font-family:'Playfair Display',serif;
-
-    font-size:42px;
-
-    margin-bottom:14px;
-
-}
-
-.login-header p{
-
-    color:var(--gray);
-
-    line-height:1.9;
-
-    font-size:15px;
-
-}
-
 /* =========================
    BUTTON
 ========================= */
@@ -439,45 +362,6 @@ body{
 }
 
 /* =========================
-   BUTTON
-========================= */
-
-.login-btn{
-
-    width:100%;
-
-    padding:18px;
-
-    border:none;
-    border-radius:18px;
-
-    background:
-    linear-gradient(
-        135deg,
-        var(--brown),
-        var(--lightBrown)
-    );
-
-    color:white;
-
-    font-size:15px;
-    font-weight:600;
-
-    cursor:pointer;
-
-    transition:0.3s;
-
-}
-
-.login-btn:hover{
-
-    transform:translateY(-2px);
-
-    box-shadow:
-    0 10px 25px rgba(176,125,87,0.25);
-
-}
-/* =========================
    MESSAGE
 ========================= */
 
@@ -521,9 +405,7 @@ body{
 
         padding:30px;
     }
-
 }
-
 </style>
 </head>
 
