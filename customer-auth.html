@@ -208,7 +208,7 @@ body{
 
 .form-container{
     width:100%;
-    max-width:420px;
+    max-width:520px;
 }
 
 /* =========================
@@ -218,26 +218,32 @@ body{
 .login-card{
 
     width:100%;
-    max-width:500px;
+    max-width:550px;
 
     background:
     linear-gradient(
         180deg,
-        rgba(35,35,35,0.95),
-        rgba(22,22,22,0.96)
+        rgba(40,40,40,.98),
+        rgba(18,18,18,.98)
     );
 
-    border-radius:35px;
+    border-radius:40px;
 
-    border:1px solid rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.08);
 
-    padding:60px 50px;
+    padding:70px 55px;
 
     box-shadow:
-    0 25px 60px rgba(0,0,0,0.45);
+    0 30px 80px rgba(0,0,0,0.5);
 
-    backdrop-filter:blur(12px);
+    backdrop-filter:blur(20px);
+    display:flex;
+    flex-direction:column;
+}
 
+   #loginForm,
+#signupForm{
+    width:100%;
 }
    
 /* =========================
@@ -351,6 +357,7 @@ body{
         var(--lightBrown)
     );
 
+   display:block;
     color:white;
 
     font-size:15px;
@@ -363,6 +370,12 @@ body{
 
 }
 
+.login-header,
+.form-group,
+.message{
+    width:100%;
+}
+   
 .login-btn:hover{
 
     transform:translateY(-2px);
@@ -462,6 +475,7 @@ body{
 
     <div id="signupForm">
     </div>
+          
        </div>
 </div>
            <!-- LOGIN FORM -->
