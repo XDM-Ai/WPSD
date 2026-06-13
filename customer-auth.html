@@ -812,13 +812,9 @@ function loginCustomer(){
    AUTO LOGIN CHECK
 ========================= */
 
-if(
-    localStorage.getItem("customerLoggedIn")
-    === "true"
-){
-
-    console.log("Customer already logged in");
-
+if(localStorage.getItem("customerLoggedIn") === "true"){
+    window.location.href =
+    "World-Postal-Delivery-Service.html";
 }
    
 </script>
